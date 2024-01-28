@@ -44,19 +44,11 @@ export const getAccount = /* GraphQL */ `
 `;
 export const listAccounts = /* GraphQL */ `
   query ListAccounts(
-    $id: ID
     $filter: ModelAccountFilterInput
     $limit: Int
     $nextToken: String
-    $sortDirection: ModelSortDirection
   ) {
-    listAccounts(
-      id: $id
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
+    listAccounts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         username
@@ -94,19 +86,11 @@ export const getUserProfile = /* GraphQL */ `
 `;
 export const listUserProfiles = /* GraphQL */ `
   query ListUserProfiles(
-    $id: ID
     $filter: ModelUserProfileFilterInput
     $limit: Int
     $nextToken: String
-    $sortDirection: ModelSortDirection
   ) {
-    listUserProfiles(
-      id: $id
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
+    listUserProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         firstName
@@ -141,18 +125,14 @@ export const getBusinessProfile = /* GraphQL */ `
 `;
 export const listBusinessProfiles = /* GraphQL */ `
   query ListBusinessProfiles(
-    $id: ID
     $filter: ModelBusinessProfileFilterInput
     $limit: Int
     $nextToken: String
-    $sortDirection: ModelSortDirection
   ) {
     listBusinessProfiles(
-      id: $id
       filter: $filter
       limit: $limit
       nextToken: $nextToken
-      sortDirection: $sortDirection
     ) {
       items {
         id
