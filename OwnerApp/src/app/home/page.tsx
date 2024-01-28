@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Label from "@/components/Label/Label";
 import Avatar from "@/shared/Avatar/Avatar";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -7,6 +9,18 @@ import Textarea from "@/shared/Textarea/Textarea";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 
 const HomePage = ({}) => {
+  const [businessName, setBusinessName] = useState("");
+  const [businessEmail, setBusinessEmail] = useState("");
+  const [businessLocation, setBusinessLocation] = useState("");
+  const [description, setDescription] = useState("");
+  const [businessWebsite, setBusinessWebsite] = useState("");
+
+  const [facebookLink, setFacebookLink] = useState("");
+  const [twitterLink, setTwitterLink] = useState("");
+  const [tiktokLink, setTiktokLink] = useState("");
+
+  const [businessTags, setBusinessTags] = useState("");
+
   return (
     <div className={`nc-AccountPage`}>
       <div className="container">
@@ -46,6 +60,7 @@ const HomePage = ({}) => {
                 </div>
                 <input
                   type="file"
+                  accept="image/*"
                   className="absolute inset-0 opacity-0 cursor-pointer"
                 />
               </div>
@@ -57,6 +72,8 @@ const HomePage = ({}) => {
                 <Input
                   className="mt-1.5"
                   defaultValue="Software Development Business"
+                  value={businessName}
+                  onChange={(e) => setBusinessName(e.target.value)}
                 />
               </div>
 
@@ -64,7 +81,12 @@ const HomePage = ({}) => {
 
               <div>
                 <Label>Business Location</Label>
-                <Input className="mt-1.5" defaultValue="123 apple street" />
+                <Input
+                  className="mt-1.5"
+                  defaultValue="123 apple street"
+                  value={businessLocation}
+                  onChange={(e) => setBusinessLocation(e.target.value)}
+                />
               </div>
 
               {/* ---- */}
@@ -78,6 +100,8 @@ const HomePage = ({}) => {
                   <Input
                     className="!rounded-l-none"
                     placeholder="example@email.com"
+                    value={businessEmail}
+                    onChange={(e) => setBusinessEmail(e.target.value)}
                   />
                 </div>
               </div>
@@ -89,6 +113,8 @@ const HomePage = ({}) => {
                   rows={5}
                   className="mt-1.5"
                   placeholder="Something about you business in a few words"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
 
@@ -102,6 +128,8 @@ const HomePage = ({}) => {
                   <Input
                     className="!rounded-l-none"
                     placeholder="yourwebsite.com"
+                    value={businessWebsite}
+                    onChange={(e) => setBusinessWebsite(e.target.value)}
                   />
                 </div>
               </div>
@@ -129,6 +157,8 @@ const HomePage = ({}) => {
                       className="!rounded-l-none"
                       placeholder="yourfacebook"
                       sizeClass="h-11 px-4 pl-2 pr-3"
+                      value={facebookLink}
+                      onChange={(e) => setFacebookLink(e.target.value)}
                     />
                   </div>
                 </div>
@@ -153,6 +183,8 @@ const HomePage = ({}) => {
                       className="!rounded-l-none"
                       placeholder="yourtwitter"
                       sizeClass="h-11 px-4 pl-2 pr-3"
+                      value={twitterLink}
+                      onChange={(e) => setTwitterLink(e.target.value)}
                     />
                   </div>
                 </div>
@@ -177,6 +209,8 @@ const HomePage = ({}) => {
                       className="!rounded-l-none"
                       placeholder="yourtelegram"
                       sizeClass="h-11 px-4 pl-2 pr-3"
+                      value={tiktokLink}
+                      onChange={(e) => setTiktokLink(e.target.value)}
                     />
                   </div>
                 </div>
@@ -189,6 +223,8 @@ const HomePage = ({}) => {
                 <Input
                   className="mt-1.5"
                   defaultValue="freelance, coding, NextJS"
+                  value={businessTags}
+                  onChange={(e) => setBusinessTags(e.target.value)}
                 />
               </div>
 
