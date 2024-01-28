@@ -2,6 +2,10 @@ import "./globals.css";
 import "@/styles/index.scss";
 import "rc-slider/assets/index.css";
 import LayoutClientChild from "../components/layout-client-child";
+import { Amplify } from 'aws-amplify';
+import config from '../amplifyconfiguration.json';
+Amplify.configure(config);
+
 
 export const metadata = {
   title: "Senior Project - Owner",
