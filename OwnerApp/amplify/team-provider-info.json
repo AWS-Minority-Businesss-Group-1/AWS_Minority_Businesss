@@ -20,6 +20,9 @@
       },
       "auth": {
         "ownerapp9e572191": {}
+      },
+      "api": {
+        "ownerapp": {}
       }
     }
   }
