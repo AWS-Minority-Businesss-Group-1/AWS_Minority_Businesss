@@ -11,9 +11,6 @@ export const createAccount = /* GraphQL */ `
       username
       accountType
       email
-      passwordHash
-      creationDate
-      lastLoginDate
       userProfile {
         id
         firstName
@@ -29,6 +26,8 @@ export const createAccount = /* GraphQL */ `
       businessProfile {
         id
         address
+        businessState
+        licenceNumber
         name
         description
         openingHours
@@ -55,9 +54,6 @@ export const updateAccount = /* GraphQL */ `
       username
       accountType
       email
-      passwordHash
-      creationDate
-      lastLoginDate
       userProfile {
         id
         firstName
@@ -73,6 +69,8 @@ export const updateAccount = /* GraphQL */ `
       businessProfile {
         id
         address
+        businessState
+        licenceNumber
         name
         description
         openingHours
@@ -99,9 +97,6 @@ export const deleteAccount = /* GraphQL */ `
       username
       accountType
       email
-      passwordHash
-      creationDate
-      lastLoginDate
       userProfile {
         id
         firstName
@@ -117,6 +112,8 @@ export const deleteAccount = /* GraphQL */ `
       businessProfile {
         id
         address
+        businessState
+        licenceNumber
         name
         description
         openingHours
@@ -198,6 +195,8 @@ export const createBusinessProfile = /* GraphQL */ `
     createBusinessProfile(input: $input, condition: $condition) {
       id
       address
+      businessState
+      licenceNumber
       name
       description
       openingHours
@@ -216,6 +215,8 @@ export const updateBusinessProfile = /* GraphQL */ `
     updateBusinessProfile(input: $input, condition: $condition) {
       id
       address
+      businessState
+      licenceNumber
       name
       description
       openingHours
@@ -234,6 +235,8 @@ export const deleteBusinessProfile = /* GraphQL */ `
     deleteBusinessProfile(input: $input, condition: $condition) {
       id
       address
+      businessState
+      licenceNumber
       name
       description
       openingHours

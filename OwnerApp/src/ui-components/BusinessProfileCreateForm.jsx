@@ -24,12 +24,20 @@ export default function BusinessProfileCreateForm(props) {
   } = props;
   const initialValues = {
     address: "",
+    businessState: "",
+    licenceNumber: "",
     name: "",
     description: "",
     openingHours: "",
     contactInfo: "",
   };
   const [address, setAddress] = React.useState(initialValues.address);
+  const [businessState, setBusinessState] = React.useState(
+    initialValues.businessState
+  );
+  const [licenceNumber, setLicenceNumber] = React.useState(
+    initialValues.licenceNumber
+  );
   const [name, setName] = React.useState(initialValues.name);
   const [description, setDescription] = React.useState(
     initialValues.description
@@ -43,6 +51,8 @@ export default function BusinessProfileCreateForm(props) {
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setAddress(initialValues.address);
+    setBusinessState(initialValues.businessState);
+    setLicenceNumber(initialValues.licenceNumber);
     setName(initialValues.name);
     setDescription(initialValues.description);
     setOpeningHours(initialValues.openingHours);
@@ -50,7 +60,9 @@ export default function BusinessProfileCreateForm(props) {
     setErrors({});
   };
   const validations = {
-    address: [{ type: "Required" }],
+    address: [],
+    businessState: [{ type: "Required" }],
+    licenceNumber: [{ type: "Required" }],
     name: [{ type: "Required" }],
     description: [],
     openingHours: [],
@@ -83,6 +95,8 @@ export default function BusinessProfileCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           address,
+          businessState,
+          licenceNumber,
           name,
           description,
           openingHours,
@@ -142,7 +156,7 @@ export default function BusinessProfileCreateForm(props) {
     >
       <TextField
         label="Address"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={address}
         onChange={(e) => {
@@ -150,6 +164,8 @@ export default function BusinessProfileCreateForm(props) {
           if (onChange) {
             const modelFields = {
               address: value,
+              businessState,
+              licenceNumber,
               name,
               description,
               openingHours,
@@ -169,6 +185,66 @@ export default function BusinessProfileCreateForm(props) {
         {...getOverrideProps(overrides, "address")}
       ></TextField>
       <TextField
+        label="Business state"
+        isRequired={true}
+        isReadOnly={false}
+        value={businessState}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              address,
+              businessState: value,
+              licenceNumber,
+              name,
+              description,
+              openingHours,
+              contactInfo,
+            };
+            const result = onChange(modelFields);
+            value = result?.businessState ?? value;
+          }
+          if (errors.businessState?.hasError) {
+            runValidationTasks("businessState", value);
+          }
+          setBusinessState(value);
+        }}
+        onBlur={() => runValidationTasks("businessState", businessState)}
+        errorMessage={errors.businessState?.errorMessage}
+        hasError={errors.businessState?.hasError}
+        {...getOverrideProps(overrides, "businessState")}
+      ></TextField>
+      <TextField
+        label="Licence number"
+        isRequired={true}
+        isReadOnly={false}
+        value={licenceNumber}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              address,
+              businessState,
+              licenceNumber: value,
+              name,
+              description,
+              openingHours,
+              contactInfo,
+            };
+            const result = onChange(modelFields);
+            value = result?.licenceNumber ?? value;
+          }
+          if (errors.licenceNumber?.hasError) {
+            runValidationTasks("licenceNumber", value);
+          }
+          setLicenceNumber(value);
+        }}
+        onBlur={() => runValidationTasks("licenceNumber", licenceNumber)}
+        errorMessage={errors.licenceNumber?.errorMessage}
+        hasError={errors.licenceNumber?.hasError}
+        {...getOverrideProps(overrides, "licenceNumber")}
+      ></TextField>
+      <TextField
         label="Name"
         isRequired={true}
         isReadOnly={false}
@@ -178,6 +254,8 @@ export default function BusinessProfileCreateForm(props) {
           if (onChange) {
             const modelFields = {
               address,
+              businessState,
+              licenceNumber,
               name: value,
               description,
               openingHours,
@@ -206,6 +284,8 @@ export default function BusinessProfileCreateForm(props) {
           if (onChange) {
             const modelFields = {
               address,
+              businessState,
+              licenceNumber,
               name,
               description: value,
               openingHours,
@@ -234,6 +314,8 @@ export default function BusinessProfileCreateForm(props) {
           if (onChange) {
             const modelFields = {
               address,
+              businessState,
+              licenceNumber,
               name,
               description,
               openingHours: value,
@@ -262,6 +344,8 @@ export default function BusinessProfileCreateForm(props) {
           if (onChange) {
             const modelFields = {
               address,
+              businessState,
+              licenceNumber,
               name,
               description,
               openingHours,
