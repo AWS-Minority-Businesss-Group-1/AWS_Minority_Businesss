@@ -257,6 +257,8 @@ function Second() {
           },
         },
       });
+
+      return data.email;
     },
     {
       onError: (err: Error) => {
@@ -266,11 +268,12 @@ function Second() {
           position: "bottom-right",
         });
       },
-      onSuccess: () => {
-        const successMessage = "Successfully created account! Please login.";
+      onSuccess: (data) => {
+        const successMessage =
+          "Successfully created account! Please check your email for your verification code.";
 
         toast(successMessage, {
-          autoClose: 3000,
+          autoClose: 5000,
           type: "success",
           position: "bottom-right",
         });
@@ -281,7 +284,9 @@ function Second() {
             payload.type === "success" &&
             payload.content === successMessage
           ) {
-            router.push("/login");
+            // data is the email we
+            // returned from the mutation function above
+            router.push(`/confirmNewUser/${data}`);
           }
         });
       },
