@@ -11,7 +11,8 @@ import SocialsList from "@/shared/SocialsList/SocialsList";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import SwitchDarkMode from "@/shared/SwitchDarkMode/SwitchDarkMode";
 import Link from "next/link";
-import AuthContext from "@/context/auth/AuthContext";
+import { useAuthContext } from "@/context/auth/AuthContext";
+import { signOut } from "@aws-amplify/auth";
 
 export interface NavMobileProps {
   data?: NavItemType[];
@@ -22,7 +23,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
   data = NAVIGATION_DEMO_2,
   onClickClose,
 }) => {
-  const { toggleAuthentication, isAuthenticated } = useContext(AuthContext);
+  const { user } = useAuthContext();
 
   const _renderMenuChild = (
     item: NavItemType,
@@ -188,15 +189,15 @@ const NavMobile: React.FC<NavMobileProps> = ({
 
         <div className="mt-5">{renderSearchForm()}</div>
       </div>
-      {isAuthenticated ? (
+      {user ? (
         <ul className="flex flex-col py-6 px-2 space-y-1">
           {data.map(_renderItem)}
         </ul>
       ) : null}
       <div className="flex items-center justify-between py-6 px-5 space-x-2">
-        {isAuthenticated ? (
+        {user ? (
           <ButtonPrimary
-            onClick={toggleAuthentication}
+            onClick={() => signOut()}
             href={"/login"}
             className="!px-10"
           >

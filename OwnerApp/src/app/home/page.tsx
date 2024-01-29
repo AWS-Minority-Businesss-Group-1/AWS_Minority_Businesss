@@ -8,7 +8,7 @@ import Input from "@/shared/Input/Input";
 import Textarea from "@/shared/Textarea/Textarea";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 
-const HomePage = ({}) => {
+const HomePage = () => {
   const [businessName, setBusinessName] = useState("");
   const [businessEmail, setBusinessEmail] = useState("");
   const [businessLocation, setBusinessLocation] = useState("");

@@ -5,11 +5,9 @@ import { avatarImgs } from "@/contains/fakeData";
 import { Fragment, useContext } from "react";
 import Avatar from "@/shared/Avatar/Avatar";
 import Link from "next/link";
-import AuthContext from "@/context/auth/AuthContext";
+import { signOut } from "@aws-amplify/auth";
 
 export default function AvatarDropdown() {
-  const { toggleAuthentication } = useContext(AuthContext);
-
   return (
     <div className="AvatarDropdown relative flex">
       <Popover className="self-center">
@@ -195,7 +193,7 @@ export default function AvatarDropdown() {
                           />
                         </svg>
                       </div>
-                      <div className="ml-4" onClick={toggleAuthentication}>
+                      <div className="ml-4" onClick={() => signOut()}>
                         <p className="text-sm font-medium ">{"Disconnect"}</p>
                       </div>
                     </Link>
