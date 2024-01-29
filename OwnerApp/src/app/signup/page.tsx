@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import facebookSvg from "@/images/Facebook.svg";
 import twitterSvg from "@/images/Twitter.svg";
 import googleSvg from "@/images/Google.svg";
@@ -9,21 +9,105 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
 import Checkbox from "@/shared/Checkbox/Checkbox";
+import { signUp } from "@aws-amplify/auth";
+import {
+  SignupProvider,
+  useSignupContext,
+} from "@/context/Forms/signUpContext";
+import { toast } from "react-toastify";
+import { useMutation } from "react-query";
+import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import { generateClient } from "aws-amplify/api";
+import {
+  createAccount as createAccountMutation,
+  createUserProfile as createUserProfileMutation,
+  createBusinessProfile as createBusinessProfileMutation,
+} from "../../graphql/mutations";
+import { useRouter } from "next/navigation";
 
-function First({
-  page,
-  setPage,
-}: {
-  page: "FIRST" | "SECOND";
-  setPage: React.Dispatch<React.SetStateAction<"FIRST" | "SECOND">>;
-}) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const client = generateClient();
+
+function First() {
+  const {
+    userName,
+    setUserName,
+    setPage,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    page,
+  } = useSignupContext();
+
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  function handleSubmit() {
+    if (!userName) {
+      toast("Username is required", {
+        autoClose: 3000,
+        type: "error",
+        position: "bottom-right",
+      });
+
+      return;
+    }
+
+    if (!email) {
+      toast("Email is required", {
+        autoClose: 3000,
+        type: "error",
+        position: "bottom-right",
+      });
+
+      return;
+    }
+
+    if (!password) {
+      toast("Password is required", {
+        autoClose: 3000,
+        type: "error",
+        position: "bottom-right",
+      });
+
+      return;
+    }
+
+    if (!confirmPassword) {
+      toast("Confirm password is required", {
+        autoClose: 3000,
+        type: "error",
+        position: "bottom-right",
+      });
+
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast("Passwords must match", {
+        autoClose: 3000,
+        type: "error",
+        position: "bottom-right",
+      });
+
+      return;
+    }
+
+    setPage("SECOND");
+  }
+
   return (
-    <form className="grid grid-cols-1 gap-6">
+    <div className="grid grid-cols-1 gap-6">
+      <label className="block">
+        <span className="text-neutral-800 dark:text-neutral-200">Username</span>
+        <Input
+          type="text"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+          className="mt-1"
+        />
+      </label>
+
       <label className="block">
         <span className="text-neutral-800 dark:text-neutral-200">
           Email address
@@ -70,26 +154,216 @@ function First({
         onChange={(checked) => setShowPassword(checked)}
       />
 
-      <ButtonPrimary onClick={() => setPage("SECOND")}>Next</ButtonPrimary>
-    </form>
+      <ButtonPrimary onClick={handleSubmit}>Next</ButtonPrimary>
+    </div>
   );
 }
 
-function Second({
-  page,
-  setPage,
-}: {
-  page: "FIRST" | "SECOND";
-  setPage: React.Dispatch<React.SetStateAction<"FIRST" | "SECOND">>;
-}) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [businessName, setBusinessName] = useState("");
-  const [businessState, setBusinessState] = useState("");
-  const [businessLicenceNumber, setBusinessLicenceNumber] = useState("");
+function Second() {
+  interface signUpObj {
+    userName: string;
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    businessName: string;
+    businessState: string;
+    businessLicenceNumber: string;
+  }
+
+  const {
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    businessName,
+    setBusinessName,
+    businessState,
+    setBusinessState,
+    businessLicenceNumber,
+    setBusinessLicenceNumber,
+    email,
+    password,
+    userName,
+    phoneNumber,
+    setPhoneNumber,
+    setPage,
+  } = useSignupContext();
+
+  const router = useRouter();
+
+  let unsubscribe = toast.onChange(() => {});
+
+  useEffect(() => {
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const mutation = useMutation(
+    async (data: signUpObj) => {
+      const newUser = await signUp({
+        // I know its confusing but for some reason even though its
+        // an email cognito wants to call it username here
+        // I know this is true because the first time I tried putting
+        // the actual username here and it said it wanted an email
+        username: data.email,
+        password: data.password,
+        options: {
+          userAttributes: {
+            email: data.email,
+            family_name: data.lastName,
+            name: data.firstName,
+            preferred_username: data.userName,
+            // I guess you need a country code for cognito
+            // phone number validation to pass
+            phone_number: "+1" + data.phoneNumber,
+          },
+        },
+      });
+
+      await client.graphql({
+        query: createAccountMutation,
+        variables: {
+          input: {
+            id: newUser.userId,
+            username: data.userName,
+            accountType: "OWNER",
+            email: data.email,
+          },
+        },
+      });
+
+      await client.graphql({
+        query: createUserProfileMutation,
+        variables: {
+          input: {
+            id: newUser.userId,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            phoneNumber: data.phoneNumber,
+          },
+        },
+      });
+
+      await client.graphql({
+        query: createBusinessProfileMutation,
+        variables: {
+          input: {
+            name: data.businessName,
+            businessState: data.businessState,
+            licenceNumber: data.businessLicenceNumber,
+          },
+        },
+      });
+    },
+    {
+      onError: (err: Error) => {
+        toast(err.message, {
+          autoClose: 3000,
+          type: "error",
+          position: "bottom-right",
+        });
+      },
+      onSuccess: () => {
+        const successMessage = "Successfully created account! Please login.";
+
+        toast(successMessage, {
+          autoClose: 3000,
+          type: "success",
+          position: "bottom-right",
+        });
+
+        unsubscribe = toast.onChange((payload) => {
+          if (
+            payload.status === "removed" &&
+            payload.type === "success" &&
+            payload.content === successMessage
+          ) {
+            router.push("/login");
+          }
+        });
+      },
+    }
+  );
+
+  function handleSignUp() {
+    if (!firstName) {
+      toast("First name is required", {
+        autoClose: 3000,
+        type: "error",
+        position: "bottom-right",
+      });
+
+      return;
+    }
+
+    if (!lastName) {
+      toast("Last name is required", {
+        autoClose: 3000,
+        type: "error",
+        position: "bottom-right",
+      });
+
+      return;
+    }
+
+    if (!phoneNumber) {
+      toast("Phone number is required", {
+        autoClose: 3000,
+        type: "error",
+        position: "bottom-right",
+      });
+
+      return;
+    }
+
+    if (!businessName) {
+      toast("Business name is required", {
+        autoClose: 3000,
+        type: "error",
+        position: "bottom-right",
+      });
+
+      return;
+    }
+
+    if (!businessLicenceNumber) {
+      toast("Business licence number is required", {
+        autoClose: 3000,
+        type: "error",
+        position: "bottom-right",
+      });
+
+      return;
+    }
+
+    if (!businessState) {
+      toast("Business state is required", {
+        autoClose: 3000,
+        type: "error",
+        position: "bottom-right",
+      });
+
+      return;
+    }
+
+    mutation.mutate({
+      userName,
+      email,
+      firstName,
+      lastName,
+      password,
+      phoneNumber,
+      businessLicenceNumber,
+      businessName,
+      businessState,
+    });
+  }
 
   return (
-    <form className="grid grid-cols-1 gap-6" action="#" method="post">
+    <div className="grid grid-cols-1 gap-6">
       <label className="block">
         <span className="text-neutral-800 dark:text-neutral-200">
           First Name
@@ -111,6 +385,18 @@ function Second({
           className="mt-1"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
+        />
+      </label>
+
+      <label className="block">
+        <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+          Phone Number
+        </span>
+        <Input
+          type="tel"
+          className="mt-1"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
         />
       </label>
 
@@ -150,24 +436,33 @@ function Second({
         />
       </label>
 
-      <ButtonPrimary type="submit">Sign Up</ButtonPrimary>
-    </form>
+      <div className="flex flex-row space-x-2">
+        <ButtonSecondary
+          onClick={() => {
+            setPage("FIRST");
+          }}
+        >
+          Back
+        </ButtonSecondary>
+        <ButtonPrimary onClick={handleSignUp}>Sign Up</ButtonPrimary>
+      </div>
+    </div>
   );
 }
 
-const PageSignUp = () => {
-  const [page, setPage] = useState<"FIRST" | "SECOND">("FIRST");
+function CurrentSignUpPage() {
+  const { page } = useSignupContext();
 
-  function CurrentSignUpPage() {
-    if (page === "FIRST") {
-      return <First page={page} setPage={setPage} />;
-    } else if (page === "SECOND") {
-      return <Second page={page} setPage={setPage} />;
-    }
-
-    return <div></div>;
+  if (page === "FIRST") {
+    return <First />;
+  } else if (page === "SECOND") {
+    return <Second />;
   }
 
+  return <div></div>;
+}
+
+const SignUp = () => {
   return (
     <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
       <div className="container mb-24 lg:mb-32">
@@ -190,4 +485,12 @@ const PageSignUp = () => {
   );
 };
 
-export default PageSignUp;
+function SignUpPage() {
+  return (
+    <SignupProvider>
+      <SignUp />
+    </SignupProvider>
+  );
+}
+
+export default SignUpPage;

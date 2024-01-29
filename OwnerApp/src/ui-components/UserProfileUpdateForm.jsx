@@ -73,10 +73,10 @@ export default function UserProfileUpdateForm(props) {
   const validations = {
     firstName: [{ type: "Required" }],
     lastName: [{ type: "Required" }],
-    address: [{ type: "Required" }],
-    bio: [{ type: "Required" }],
+    address: [],
+    bio: [],
     phoneNumber: [{ type: "Required" }],
-    location: [{ type: "Required" }],
+    location: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -106,10 +106,10 @@ export default function UserProfileUpdateForm(props) {
         let modelFields = {
           firstName,
           lastName,
-          address,
-          bio,
+          address: address ?? null,
+          bio: bio ?? null,
           phoneNumber,
-          location,
+          location: location ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -221,7 +221,7 @@ export default function UserProfileUpdateForm(props) {
       ></TextField>
       <TextField
         label="Address"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={address}
         onChange={(e) => {
@@ -250,7 +250,7 @@ export default function UserProfileUpdateForm(props) {
       ></TextField>
       <TextField
         label="Bio"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={bio}
         onChange={(e) => {
@@ -308,7 +308,7 @@ export default function UserProfileUpdateForm(props) {
       ></TextField>
       <TextField
         label="Location"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={location}
         onChange={(e) => {

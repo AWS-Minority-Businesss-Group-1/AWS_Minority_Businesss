@@ -32,41 +32,23 @@ export default function AccountCreateForm(props) {
     username: "",
     accountType: "",
     email: "",
-    passwordHash: "",
-    creationDate: "",
-    lastLoginDate: "",
   };
   const [username, setUsername] = React.useState(initialValues.username);
   const [accountType, setAccountType] = React.useState(
     initialValues.accountType
   );
   const [email, setEmail] = React.useState(initialValues.email);
-  const [passwordHash, setPasswordHash] = React.useState(
-    initialValues.passwordHash
-  );
-  const [creationDate, setCreationDate] = React.useState(
-    initialValues.creationDate
-  );
-  const [lastLoginDate, setLastLoginDate] = React.useState(
-    initialValues.lastLoginDate
-  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setUsername(initialValues.username);
     setAccountType(initialValues.accountType);
     setEmail(initialValues.email);
-    setPasswordHash(initialValues.passwordHash);
-    setCreationDate(initialValues.creationDate);
-    setLastLoginDate(initialValues.lastLoginDate);
     setErrors({});
   };
   const validations = {
     username: [{ type: "Required" }],
     accountType: [{ type: "Required" }],
     email: [{ type: "Required" }],
-    passwordHash: [{ type: "Required" }],
-    creationDate: [{ type: "Required" }],
-    lastLoginDate: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -97,9 +79,6 @@ export default function AccountCreateForm(props) {
           username,
           accountType,
           email,
-          passwordHash,
-          creationDate,
-          lastLoginDate,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -165,9 +144,6 @@ export default function AccountCreateForm(props) {
               username: value,
               accountType,
               email,
-              passwordHash,
-              creationDate,
-              lastLoginDate,
             };
             const result = onChange(modelFields);
             value = result?.username ?? value;
@@ -194,9 +170,6 @@ export default function AccountCreateForm(props) {
               username,
               accountType: value,
               email,
-              passwordHash,
-              creationDate,
-              lastLoginDate,
             };
             const result = onChange(modelFields);
             value = result?.accountType ?? value;
@@ -234,9 +207,6 @@ export default function AccountCreateForm(props) {
               username,
               accountType,
               email: value,
-              passwordHash,
-              creationDate,
-              lastLoginDate,
             };
             const result = onChange(modelFields);
             value = result?.email ?? value;
@@ -250,93 +220,6 @@ export default function AccountCreateForm(props) {
         errorMessage={errors.email?.errorMessage}
         hasError={errors.email?.hasError}
         {...getOverrideProps(overrides, "email")}
-      ></TextField>
-      <TextField
-        label="Password hash"
-        isRequired={true}
-        isReadOnly={false}
-        value={passwordHash}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              username,
-              accountType,
-              email,
-              passwordHash: value,
-              creationDate,
-              lastLoginDate,
-            };
-            const result = onChange(modelFields);
-            value = result?.passwordHash ?? value;
-          }
-          if (errors.passwordHash?.hasError) {
-            runValidationTasks("passwordHash", value);
-          }
-          setPasswordHash(value);
-        }}
-        onBlur={() => runValidationTasks("passwordHash", passwordHash)}
-        errorMessage={errors.passwordHash?.errorMessage}
-        hasError={errors.passwordHash?.hasError}
-        {...getOverrideProps(overrides, "passwordHash")}
-      ></TextField>
-      <TextField
-        label="Creation date"
-        isRequired={true}
-        isReadOnly={false}
-        value={creationDate}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              username,
-              accountType,
-              email,
-              passwordHash,
-              creationDate: value,
-              lastLoginDate,
-            };
-            const result = onChange(modelFields);
-            value = result?.creationDate ?? value;
-          }
-          if (errors.creationDate?.hasError) {
-            runValidationTasks("creationDate", value);
-          }
-          setCreationDate(value);
-        }}
-        onBlur={() => runValidationTasks("creationDate", creationDate)}
-        errorMessage={errors.creationDate?.errorMessage}
-        hasError={errors.creationDate?.hasError}
-        {...getOverrideProps(overrides, "creationDate")}
-      ></TextField>
-      <TextField
-        label="Last login date"
-        isRequired={false}
-        isReadOnly={false}
-        value={lastLoginDate}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              username,
-              accountType,
-              email,
-              passwordHash,
-              creationDate,
-              lastLoginDate: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.lastLoginDate ?? value;
-          }
-          if (errors.lastLoginDate?.hasError) {
-            runValidationTasks("lastLoginDate", value);
-          }
-          setLastLoginDate(value);
-        }}
-        onBlur={() => runValidationTasks("lastLoginDate", lastLoginDate)}
-        errorMessage={errors.lastLoginDate?.errorMessage}
-        hasError={errors.lastLoginDate?.hasError}
-        {...getOverrideProps(overrides, "lastLoginDate")}
       ></TextField>
       <Flex
         justifyContent="space-between"

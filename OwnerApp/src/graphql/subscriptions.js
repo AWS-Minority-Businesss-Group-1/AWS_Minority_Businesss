@@ -8,9 +8,6 @@ export const onCreateAccount = /* GraphQL */ `
       username
       accountType
       email
-      passwordHash
-      creationDate
-      lastLoginDate
       userProfile {
         id
         firstName
@@ -26,6 +23,8 @@ export const onCreateAccount = /* GraphQL */ `
       businessProfile {
         id
         address
+        businessState
+        licenceNumber
         name
         description
         openingHours
@@ -49,9 +48,6 @@ export const onUpdateAccount = /* GraphQL */ `
       username
       accountType
       email
-      passwordHash
-      creationDate
-      lastLoginDate
       userProfile {
         id
         firstName
@@ -67,6 +63,8 @@ export const onUpdateAccount = /* GraphQL */ `
       businessProfile {
         id
         address
+        businessState
+        licenceNumber
         name
         description
         openingHours
@@ -90,9 +88,6 @@ export const onDeleteAccount = /* GraphQL */ `
       username
       accountType
       email
-      passwordHash
-      creationDate
-      lastLoginDate
       userProfile {
         id
         firstName
@@ -108,6 +103,8 @@ export const onDeleteAccount = /* GraphQL */ `
       businessProfile {
         id
         address
+        businessState
+        licenceNumber
         name
         description
         openingHours
@@ -185,6 +182,8 @@ export const onCreateBusinessProfile = /* GraphQL */ `
     onCreateBusinessProfile(filter: $filter) {
       id
       address
+      businessState
+      licenceNumber
       name
       description
       openingHours
@@ -202,6 +201,8 @@ export const onUpdateBusinessProfile = /* GraphQL */ `
     onUpdateBusinessProfile(filter: $filter) {
       id
       address
+      businessState
+      licenceNumber
       name
       description
       openingHours
@@ -219,6 +220,8 @@ export const onDeleteBusinessProfile = /* GraphQL */ `
     onDeleteBusinessProfile(filter: $filter) {
       id
       address
+      businessState
+      licenceNumber
       name
       description
       openingHours

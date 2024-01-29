@@ -8,9 +8,6 @@ export const getAccount = /* GraphQL */ `
       username
       accountType
       email
-      passwordHash
-      creationDate
-      lastLoginDate
       userProfile {
         id
         firstName
@@ -26,6 +23,8 @@ export const getAccount = /* GraphQL */ `
       businessProfile {
         id
         address
+        businessState
+        licenceNumber
         name
         description
         openingHours
@@ -54,9 +53,6 @@ export const listAccounts = /* GraphQL */ `
         username
         accountType
         email
-        passwordHash
-        creationDate
-        lastLoginDate
         createdAt
         updatedAt
         accountUserProfileId
@@ -113,6 +109,8 @@ export const getBusinessProfile = /* GraphQL */ `
     getBusinessProfile(id: $id) {
       id
       address
+      businessState
+      licenceNumber
       name
       description
       openingHours
@@ -137,6 +135,8 @@ export const listBusinessProfiles = /* GraphQL */ `
       items {
         id
         address
+        businessState
+        licenceNumber
         name
         description
         openingHours

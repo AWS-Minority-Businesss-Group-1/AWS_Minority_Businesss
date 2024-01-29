@@ -21,42 +21,44 @@ interface LayoutChildProps {
 }
 
 const LayoutClientChild: React.FC<LayoutChildProps> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    typeof window !== "undefined" &&
-      window.sessionStorage.getItem("isAuthenticated") === "true"
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  if (
-    typeof window !== "undefined" &&
-    !window.sessionStorage.getItem("isAuthenticated")
-  ) {
-    window.sessionStorage.setItem("isAuthenticated", "false");
-  }
+  // const [isAuthenticated, setIsAuthenticated] = useState(
+  //   typeof window !== "undefined" &&
+  //     window.sessionStorage.getItem("isAuthenticated") === "true"
+  // );
 
-  const toggleAuthentication = () => {
-    setIsAuthenticated(!isAuthenticated);
-  };
+  // if (
+  //   typeof window !== "undefined" &&
+  //   !window.sessionStorage.getItem("isAuthenticated")
+  // ) {
+  //   window.sessionStorage.setItem("isAuthenticated", "false");
+  // }
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("isAuthenticated", isAuthenticated.toString());
-    }
-  }, [isAuthenticated]);
+  // const toggleAuthentication = () => {
+  //   setIsAuthenticated(!isAuthenticated);
+  // };
+
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     sessionStorage.setItem("isAuthenticated", isAuthenticated.toString());
+  //   }
+  // }, [isAuthenticated]);
 
   return (
-    <AuthClientComponentWrapper
-      isAuthenticated={isAuthenticated}
-      toggleAuthentication={toggleAuthentication}
-    >
-      <html lang="en" className={poppins.className}>
-        <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-          {isAuthenticated ? <SiteHeader /> : <UnauthenticatedSiteHeader />}
-          {children}
-          <Footer />
-          <MusicPlayer />
-        </body>
-      </html>
-    </AuthClientComponentWrapper>
+    // <AuthClientComponentWrapper
+    //   isAuthenticated={isAuthenticated}
+    //   toggleAuthentication={() => {}}
+    // >
+    <html lang="en" className={poppins.className}>
+      <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
+        {isAuthenticated ? <SiteHeader /> : <UnauthenticatedSiteHeader />}
+        {children}
+        <Footer />
+        <MusicPlayer />
+      </body>
+    </html>
+    // </AuthClientComponentWrapper>
   );
 };
 
