@@ -9,10 +9,11 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { signIn } from "@aws-amplify/auth";
+import { signIn, getCurrentUser } from "@aws-amplify/auth";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import Checkbox from "@/shared/Checkbox/Checkbox";
+import Cookies from "js-cookie";
 
 const PageLogin = () => {
   const router = useRouter();
@@ -35,6 +36,8 @@ const PageLogin = () => {
       if (!user.isSignedIn) {
         throw new Error("Error signing user in");
       }
+
+      // return user.
     },
     {
       onError: (err: Error) => {
@@ -44,7 +47,10 @@ const PageLogin = () => {
           position: "bottom-right",
         });
       },
-      onSuccess: () => {
+      onSuccess: async () => {
+        const user = await getCurrentUser();
+        Cookies.set("userId", user.userId);
+
         router.push("/home");
       },
     }

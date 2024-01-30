@@ -24,6 +24,7 @@ import {
   createBusinessProfile as createBusinessProfileMutation,
 } from "../../graphql/mutations";
 import { useRouter } from "next/navigation";
+import { AccountType } from "@/API";
 
 const client = generateClient();
 
@@ -258,7 +259,7 @@ function Second() {
           input: {
             id: newUser.userId,
             username: data.userName,
-            accountType: "OWNER",
+            accountType: AccountType.OWNER,
             email: data.email,
             accountUserProfileId: userProfileId,
             accountBusinessProfileId: businessProfileId,

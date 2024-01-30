@@ -6,6 +6,7 @@
 
 import * as React from "react";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { BusinessProfile } from "../API.ts";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -54,7 +55,7 @@ export declare type BusinessProfileUpdateFormProps = React.PropsWithChildren<{
     overrides?: BusinessProfileUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    businessProfile?: any;
+    businessProfile?: BusinessProfile;
     onSubmit?: (fields: BusinessProfileUpdateFormInputValues) => BusinessProfileUpdateFormInputValues;
     onSuccess?: (fields: BusinessProfileUpdateFormInputValues) => void;
     onError?: (fields: BusinessProfileUpdateFormInputValues, errorMessage: string) => void;
