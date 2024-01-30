@@ -11,6 +11,7 @@ import awsconfig from "../aws-exports";
 import { QueryClient, QueryClientProvider } from "react-query";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Head from "next/head";
+import { AuthProvider } from "@/context/auth/AuthContext";
 
 const queryClient = new QueryClient();
 
@@ -30,11 +31,13 @@ export default function RootLayout({
 
       <ErrorBoundary>
         <QueryClientProvider client={queryClient}>
-          <LayoutClientChild>
-            {children}
+          <AuthProvider>
+            <LayoutClientChild>
+              {children}
 
-            <ToastContainer />
-          </LayoutClientChild>
+              <ToastContainer />
+            </LayoutClientChild>
+          </AuthProvider>
         </QueryClientProvider>
       </ErrorBoundary>
     </>
