@@ -17,7 +17,7 @@ import {
 import { toast } from "react-toastify";
 import { useMutation } from "react-query";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import { generateClient } from "aws-amplify/api";
+import { GraphQLResult, generateClient } from "aws-amplify/api";
 import {
   createAccount as createAccountMutation,
   createUserProfile as createUserProfileMutation,
@@ -223,19 +223,7 @@ function Second() {
         },
       });
 
-      await client.graphql({
-        query: createAccountMutation,
-        variables: {
-          input: {
-            id: newUser.userId,
-            username: data.userName,
-            accountType: "OWNER",
-            email: data.email,
-          },
-        },
-      });
-
-      await client.graphql({
+      const userProfileResult = await client.graphql({
         query: createUserProfileMutation,
         variables: {
           input: {
@@ -247,13 +235,33 @@ function Second() {
         },
       });
 
-      await client.graphql({
+      const businessProfileResult = await client.graphql({
         query: createBusinessProfileMutation,
         variables: {
           input: {
             name: data.businessName,
             businessState: data.businessState,
             licenceNumber: data.businessLicenceNumber,
+          },
+        },
+      });
+
+      const userProfileId = ((userProfileResult as GraphQLResult).data as any)
+        .createUserProfile.id;
+      const businessProfileId = (
+        (businessProfileResult as GraphQLResult).data as any
+      ).createBusinessProfile.id;
+
+      await client.graphql({
+        query: createAccountMutation,
+        variables: {
+          input: {
+            id: newUser.userId,
+            username: data.userName,
+            accountType: "OWNER",
+            email: data.email,
+            accountUserProfileId: userProfileId,
+            accountBusinessProfileId: businessProfileId,
           },
         },
       });
