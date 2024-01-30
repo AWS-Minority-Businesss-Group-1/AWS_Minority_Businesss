@@ -29,11 +29,24 @@ type UserProfile @model {
 
 type BusinessProfile @model {
   id: ID!
-  address: String
   businessState: String!
   licenceNumber: String!
   name: String!
+  address: String
   description: String
-  openingHours: String
-  contactInfo: String
+  website: String
+  contactInfo: ContactInfo
+  operatingHours: [BusinessOperatingHours!]
+  tags: [String!]
+}
+
+type BusinessOperatingHours {
+  dayOfWeek: String!
+  opens: String!
+  closes: String!
+}
+
+type ContactInfo {
+  email: String
+  phoneNumber: String
 }
