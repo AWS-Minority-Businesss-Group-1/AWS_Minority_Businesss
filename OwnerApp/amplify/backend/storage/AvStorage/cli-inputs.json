@@ -1,0 +1,14 @@
+{
+  "resourceName": "AvStorage",
+  "policyUUID": "07dd54fc",
+  "bucketName": "ownerappd849389ca6fc434095652c36755285bb",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Trigger8c51e57c",
+  "groupAccess": {}
+}
