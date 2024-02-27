@@ -45,6 +45,13 @@
       "service": "Cognito"
     }
   },
+  "function": {
+    "S3Trigger8c51e57c": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "hosting": {
     "amplifyhosting": {
       "lastPushTimeStamp": "2024-01-24T04:21:54.400Z",
@@ -53,6 +60,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_S3Trigger8c51e57c_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger8c51e57c"
+        }
+      ]
+    },
+    "AMPLIFY_function_S3Trigger8c51e57c_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger8c51e57c"
+        }
+      ]
+    },
     "AMPLIFY_hosting_amplifyhosting_appId": {
       "usedBy": [
         {
@@ -68,6 +91,23 @@
           "resourceName": "amplifyhosting"
         }
       ]
+    }
+  },
+  "storage": {
+    "AvStorage": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ],
+          "category": "function",
+          "resourceName": "S3Trigger8c51e57c"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }

@@ -51,10 +51,10 @@ export default function UserProfileCreateForm(props) {
   const validations = {
     firstName: [{ type: "Required" }],
     lastName: [{ type: "Required" }],
-    address: [{ type: "Required" }],
-    bio: [{ type: "Required" }],
+    address: [],
+    bio: [],
     phoneNumber: [{ type: "Required" }],
-    location: [{ type: "Required" }],
+    location: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -201,7 +201,7 @@ export default function UserProfileCreateForm(props) {
       ></TextField>
       <TextField
         label="Address"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={address}
         onChange={(e) => {
@@ -230,7 +230,7 @@ export default function UserProfileCreateForm(props) {
       ></TextField>
       <TextField
         label="Bio"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={bio}
         onChange={(e) => {
@@ -288,7 +288,7 @@ export default function UserProfileCreateForm(props) {
       ></TextField>
       <TextField
         label="Location"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={location}
         onChange={(e) => {

@@ -23,6 +23,15 @@
       },
       "api": {
         "ownerapp": {}
+      },
+      "function": {
+        "S3Trigger8c51e57c": {
+          "deploymentBucketName": "amplify-ownerapp-dev-225736-deployment",
+          "s3Key": "amplify-builds/S3Trigger8c51e57c-483277692b484d42776a-build.zip"
+        }
+      },
+      "storage": {
+        "AvStorage": {}
       }
     }
   }

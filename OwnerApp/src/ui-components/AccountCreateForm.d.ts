@@ -25,17 +25,11 @@ export declare type AccountCreateFormInputValues = {
     username?: string;
     accountType?: string;
     email?: string;
-    passwordHash?: string;
-    creationDate?: string;
-    lastLoginDate?: string;
 };
 export declare type AccountCreateFormValidationValues = {
     username?: ValidationFunction<string>;
     accountType?: ValidationFunction<string>;
     email?: ValidationFunction<string>;
-    passwordHash?: ValidationFunction<string>;
-    creationDate?: ValidationFunction<string>;
-    lastLoginDate?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type AccountCreateFormOverridesProps = {
@@ -43,9 +37,6 @@ export declare type AccountCreateFormOverridesProps = {
     username?: PrimitiveOverrideProps<TextFieldProps>;
     accountType?: PrimitiveOverrideProps<SelectFieldProps>;
     email?: PrimitiveOverrideProps<TextFieldProps>;
-    passwordHash?: PrimitiveOverrideProps<TextFieldProps>;
-    creationDate?: PrimitiveOverrideProps<TextFieldProps>;
-    lastLoginDate?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type AccountCreateFormProps = React.PropsWithChildren<{
     overrides?: AccountCreateFormOverridesProps | undefined | null;

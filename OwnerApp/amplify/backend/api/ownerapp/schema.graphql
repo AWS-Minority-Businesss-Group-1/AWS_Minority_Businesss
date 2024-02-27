@@ -1,15 +1,13 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
-
+input AMPLIFY {
+  globalAuthRule: AuthRule = { allow: public }
+} # FOR TESTING ONLY!
 type Account @model {
   id: ID!
   username: String!
   accountType: AccountType!
   email: String!
-  passwordHash: String!
-  creationDate: String!
-  lastLoginDate: String
   userProfile: UserProfile @hasOne
   businessProfile: BusinessProfile @hasOne
 }
@@ -23,18 +21,32 @@ type UserProfile @model {
   id: ID!
   firstName: String!
   lastName: String!
-  address: String!
-  bio: String!
+  address: String
+  bio: String
   phoneNumber: String!
-  location: String!
+  location: String
 }
 
 type BusinessProfile @model {
   id: ID!
-  address: String!
+  businessState: String!
+  licenceNumber: String!
   name: String!
+  address: String
   description: String
-  openingHours: String
-  contactInfo: String
+  website: String
+  contactInfo: ContactInfo
+  operatingHours: [BusinessOperatingHours!]
+  tags: [String!]
 }
 
+type BusinessOperatingHours {
+  dayOfWeek: String!
+  opens: String!
+  closes: String!
+}
+
+type ContactInfo {
+  email: String
+  phoneNumber: String
+}
