@@ -8,7 +8,7 @@ import Footer from "@/shared/Footer/Footer";
 import MusicPlayer from "@/components/MusicPlayer/MusicPlayer";
 import SiteHeader from "@/app/SiteHeader";
 import UnauthenticatedSiteHeader from "../app/UnauthenticatedSiteHeader";
-import AuthClientComponentWrapper from "@/context/auth/AuthClientComponentWrapper";
+import { AuthProvider, useAuthContext } from "@/context/auth/AuthContext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,42 +21,17 @@ interface LayoutChildProps {
 }
 
 const LayoutClientChild: React.FC<LayoutChildProps> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    typeof window !== "undefined" &&
-      window.sessionStorage.getItem("isAuthenticated") === "true"
-  );
-
-  if (
-    typeof window !== "undefined" &&
-    !window.sessionStorage.getItem("isAuthenticated")
-  ) {
-    window.sessionStorage.setItem("isAuthenticated", "false");
-  }
-
-  const toggleAuthentication = () => {
-    setIsAuthenticated(!isAuthenticated);
-  };
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("isAuthenticated", isAuthenticated.toString());
-    }
-  }, [isAuthenticated]);
+  const { user } = useAuthContext();
 
   return (
-    <AuthClientComponentWrapper
-      isAuthenticated={isAuthenticated}
-      toggleAuthentication={toggleAuthentication}
-    >
-      <html lang="en" className={poppins.className}>
-        <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-          {isAuthenticated ? <SiteHeader /> : <UnauthenticatedSiteHeader />}
-          {children}
-          <Footer />
-          <MusicPlayer />
-        </body>
-      </html>
-    </AuthClientComponentWrapper>
+    <html lang="en" className={poppins.className}>
+      <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
+        {user ? <SiteHeader /> : <UnauthenticatedSiteHeader />}
+        {children}
+        <Footer />
+        <MusicPlayer />
+      </body>
+    </html>
   );
 };
 

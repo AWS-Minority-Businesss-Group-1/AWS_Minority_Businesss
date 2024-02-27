@@ -6,6 +6,7 @@
 
 import * as React from "react";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { BusinessProfile } from "../API.ts";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -23,6 +24,8 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type BusinessProfileUpdateFormInputValues = {
     address?: string;
+    businessState?: string;
+    licenceNumber?: string;
     name?: string;
     description?: string;
     openingHours?: string;
@@ -30,6 +33,8 @@ export declare type BusinessProfileUpdateFormInputValues = {
 };
 export declare type BusinessProfileUpdateFormValidationValues = {
     address?: ValidationFunction<string>;
+    businessState?: ValidationFunction<string>;
+    licenceNumber?: ValidationFunction<string>;
     name?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
     openingHours?: ValidationFunction<string>;
@@ -39,6 +44,8 @@ export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes
 export declare type BusinessProfileUpdateFormOverridesProps = {
     BusinessProfileUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     address?: PrimitiveOverrideProps<TextFieldProps>;
+    businessState?: PrimitiveOverrideProps<TextFieldProps>;
+    licenceNumber?: PrimitiveOverrideProps<TextFieldProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
     description?: PrimitiveOverrideProps<TextFieldProps>;
     openingHours?: PrimitiveOverrideProps<TextFieldProps>;
@@ -48,7 +55,7 @@ export declare type BusinessProfileUpdateFormProps = React.PropsWithChildren<{
     overrides?: BusinessProfileUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    businessProfile?: any;
+    businessProfile?: BusinessProfile;
     onSubmit?: (fields: BusinessProfileUpdateFormInputValues) => BusinessProfileUpdateFormInputValues;
     onSuccess?: (fields: BusinessProfileUpdateFormInputValues) => void;
     onError?: (fields: BusinessProfileUpdateFormInputValues, errorMessage: string) => void;

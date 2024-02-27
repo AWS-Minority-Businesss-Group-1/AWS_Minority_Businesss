@@ -23,6 +23,8 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type BusinessProfileCreateFormInputValues = {
     address?: string;
+    businessState?: string;
+    licenceNumber?: string;
     name?: string;
     description?: string;
     openingHours?: string;
@@ -30,6 +32,8 @@ export declare type BusinessProfileCreateFormInputValues = {
 };
 export declare type BusinessProfileCreateFormValidationValues = {
     address?: ValidationFunction<string>;
+    businessState?: ValidationFunction<string>;
+    licenceNumber?: ValidationFunction<string>;
     name?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
     openingHours?: ValidationFunction<string>;
@@ -39,6 +43,8 @@ export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes
 export declare type BusinessProfileCreateFormOverridesProps = {
     BusinessProfileCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     address?: PrimitiveOverrideProps<TextFieldProps>;
+    businessState?: PrimitiveOverrideProps<TextFieldProps>;
+    licenceNumber?: PrimitiveOverrideProps<TextFieldProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
     description?: PrimitiveOverrideProps<TextFieldProps>;
     openingHours?: PrimitiveOverrideProps<TextFieldProps>;
