@@ -10,6 +10,14 @@
       "StackName": "amplify-consumerapp-dev-175952",
       "StackId": "arn:aws:cloudformation:us-east-1:655940925248:stack/amplify-consumerapp-dev-175952/f71632a0-b00b-11ee-b7cf-0e303812f4e5",
       "AmplifyAppId": "d2bckzr4dgtvvn"
+    },
+    "categories": {
+      "auth": {
+        "ConsumerApp": {}
+      },
+      "api": {
+        "consumerapp": {}
+      }
     }
   }
 }
