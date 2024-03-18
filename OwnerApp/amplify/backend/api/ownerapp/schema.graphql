@@ -16,9 +16,9 @@ enum ProfileType {
   OWNER
 }
 
-type Profile @model {
+# type Profile @model {
   
-}
+# }
 
 type UserProfile @model {
   id: ID!
