@@ -6,19 +6,16 @@ input AMPLIFY {
 type Account @model {
   id: ID!
   username: String!
+  accountType: AccountType!
   email: String!
-  CustomerProfile: Profile
-  BusinessProfile: Profile
+  userProfile: UserProfile @hasOne
+  businessProfile: BusinessProfile @hasOne
 }
 
-enum ProfileType {
+enum AccountType {
   CUSTOMER
   OWNER
 }
-
-# type Profile @model {
-  
-# }
 
 type UserProfile @model {
   id: ID!
