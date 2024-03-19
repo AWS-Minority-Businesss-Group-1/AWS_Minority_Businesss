@@ -12,17 +12,17 @@
       "AmplifyAppId": "d16wt28tidt7p"
     },
     "categories": {
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d16wt28tidt7p",
-          "type": "cicd"
-        }
-      },
       "auth": {
         "ownerapp9e572191": {}
       },
       "api": {
         "ownerapp": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d16wt28tidt7p",
+          "type": "cicd"
+        }
       }
     }
   }
