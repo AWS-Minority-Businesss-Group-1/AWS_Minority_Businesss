@@ -23,9 +23,6 @@
           "appId": "d16wt28tidt7p",
           "type": "cicd"
         }
-      },
-      "storage": {
-        "OwnerFileStorage": {}
       }
     }
   }
