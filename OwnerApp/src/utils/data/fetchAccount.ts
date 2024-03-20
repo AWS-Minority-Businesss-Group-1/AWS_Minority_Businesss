@@ -1,9 +1,9 @@
 import { GraphQLResult, generateClient } from "aws-amplify/api";
 import { getAccount as getAccountQuery } from "../../graphql/queries";
 import { Amplify } from "aws-amplify";
-import awsconfig from "../../aws-exports";
+import config from '../../amplifyconfiguration.json';
 
-Amplify.configure(awsconfig);
+Amplify.configure(config);
 
 const client = generateClient();
 

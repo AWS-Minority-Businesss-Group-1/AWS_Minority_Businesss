@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import LayoutClientChild from "../components/layout-client-child";
 import { Amplify } from "aws-amplify";
-import awsconfig from "../aws-exports";
+import config from '../amplifyconfiguration.json';
 import { QueryClient, QueryClientProvider } from "react-query";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Head from "next/head";
@@ -15,7 +15,7 @@ import { AuthProvider } from "@/context/auth/AuthContext";
 
 const queryClient = new QueryClient();
 
-Amplify.configure(awsconfig);
+Amplify.configure(config);
 
 export default function RootLayout({
   children,
