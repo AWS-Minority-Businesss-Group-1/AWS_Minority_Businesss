@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/adapter-nextjs": "^1.0.13",
+    "@aws-amplify/adapter-nextjs": "^1.0.21",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@glidejs/glide": "^3.6.0",
@@ -24,7 +24,7 @@
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "^10.4.14",
-    "aws-amplify": "^6.0.13",
+    "aws-amplify": "^6.0.21",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
     "framer-motion": "^10.12.10",
