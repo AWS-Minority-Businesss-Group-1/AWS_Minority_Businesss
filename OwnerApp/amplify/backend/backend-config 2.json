@@ -69,12 +69,5 @@
         }
       ]
     }
-  },
-  "storage": {
-    "OwnerFileStorage": {
-      "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "S3"
-    }
   }
 }
