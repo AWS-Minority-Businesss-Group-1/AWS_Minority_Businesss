@@ -47,6 +47,9 @@
       },
       "api": {
         "ownerapp": {}
+      },
+      "auth": {
+        "ownerappcb9f37f7": {}
       }
     }
   }
