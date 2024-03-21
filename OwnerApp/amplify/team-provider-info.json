@@ -20,6 +20,9 @@
           "appId": "d2c98efy4kubzl",
           "type": "cicd"
         }
+      },
+      "auth": {
+        "ownerapp70c2d3df": {}
       }
     }
   }
