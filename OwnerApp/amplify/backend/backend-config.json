@@ -18,7 +18,7 @@
     }
   },
   "auth": {
-    "ownerapp70c2d3df": {
+    "ownerappe620064a": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -34,7 +34,9 @@
           "EMAIL"
         ],
         "socialProviders": [],
-        "usernameAttributes": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
         "verificationMechanisms": [
           "EMAIL"
         ]
