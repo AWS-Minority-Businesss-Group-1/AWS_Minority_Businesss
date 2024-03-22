@@ -71,7 +71,7 @@
     }
   },
   "storage": {
-    "OwnerApp": {
+    "Prod": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "S3"

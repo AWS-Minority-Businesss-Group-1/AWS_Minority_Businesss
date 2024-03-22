@@ -53,6 +53,9 @@
       },
       "auth": {
         "ownerappcb9f37f7": {}
+      },
+      "storage": {
+        "Prod": {}
       }
     }
   }

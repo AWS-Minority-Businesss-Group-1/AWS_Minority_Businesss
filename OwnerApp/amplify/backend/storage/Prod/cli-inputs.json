@@ -1,7 +1,7 @@
 {
-  "resourceName": "OwnerApp",
-  "policyUUID": "67719dee",
-  "bucketName": "ownerapp",
+  "resourceName": "Prod",
+  "policyUUID": "7ddfc962",
+  "bucketName": "prod",
   "storageAccess": "authAndGuest",
   "guestAccess": [
     "CREATE_AND_UPDATE",
