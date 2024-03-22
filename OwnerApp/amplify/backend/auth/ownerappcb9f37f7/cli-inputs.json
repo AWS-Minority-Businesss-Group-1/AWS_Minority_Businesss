@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "ownerappcb9f37f7_identitypool_cb9f37f7",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "owneracb9f37f7",
-    "userPoolName": "ownerappcb9f37f7_userpool_cb9f37f7",
+    "identityPoolName": "ownerappe620064a_identitypool_e620064a",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "ownerae620064a",
+    "userPoolName": "ownerappe620064a_userpool_e620064a",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -43,6 +43,20 @@
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": []
   }
 }
