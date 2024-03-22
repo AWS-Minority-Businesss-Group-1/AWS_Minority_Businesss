@@ -31,10 +31,10 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "owneracb9f37f7_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "ownerae620064a_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "cb9f37f7",
-    "resourceName": "ownerappcb9f37f7",
+    "sharedId": "e620064a",
+    "resourceName": "ownerappe620064a",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "usernameAttributes": [
