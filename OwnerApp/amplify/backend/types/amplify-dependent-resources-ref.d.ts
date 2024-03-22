@@ -18,7 +18,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "Prod": {
+    "OwnerApp": {
       "BucketName": "string",
       "Region": "string"
     }
