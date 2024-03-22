@@ -23,6 +23,9 @@
       },
       "auth": {
         "ownerappe620064a": {}
+      },
+      "storage": {
+        "OwnerApp": {}
       }
     }
   }
