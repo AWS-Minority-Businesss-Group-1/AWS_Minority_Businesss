@@ -140,6 +140,12 @@ export const getBusinessProfile = /* GraphQL */ `query GetBusinessProfile($id: I
       __typename
     }
     tags
+    profilePicture {
+      fileName
+      createdAt
+      imageUrl
+      __typename
+    }
     createdAt
     updatedAt
     __typename
