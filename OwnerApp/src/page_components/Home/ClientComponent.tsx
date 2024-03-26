@@ -1,6 +1,6 @@
 "use client";
 
-import React, { MouseEvent, useEffect, useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import Label from "@/components/Label/Label";
 import Avatar from "@/shared/Avatar/Avatar";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -13,38 +13,16 @@ import Select from "@/shared/Select/Select";
 import { useMutation } from "react-query";
 import { GraphQLResult, generateClient } from "aws-amplify/api";
 import { updateBusinessProfile as updateBusinessProfileMutation } from "@/graphql/mutations";
-import { uploadData, getUrl, remove } from "aws-amplify/storage";
-import { useBusinessProfilePictureContext } from "@/context/businessProfilePicture/BusinessProfilePictureContext";
 
 const client = generateClient();
 
 interface HomePageClientComponentProps {
   businessDetails: BusinessProfile | undefined;
-  userId: string | undefined;
 }
 
 export default function HomePageClientComponent({
   businessDetails,
-  userId,
 }: HomePageClientComponentProps) {
-  const {
-    imageUrl,
-    setImageUrl,
-    createdAt,
-    setCreatedAt,
-    fileName,
-    setFileName,
-  } = useBusinessProfilePictureContext();
-
-  useEffect(() => {
-    console.log(businessDetails?.profilePicture);
-    if (businessDetails?.profilePicture) {
-      setImageUrl(businessDetails.profilePicture.imageUrl);
-      setCreatedAt(businessDetails.profilePicture.createdAt);
-      setFileName(businessDetails.profilePicture.fileName);
-    }
-  }, []);
-
   const mutation = useMutation(
     async () => {
       if (!businessDetails?.id) {
@@ -86,81 +64,6 @@ export default function HomePageClientComponent({
           type: "success",
           position: "bottom-right",
         });
-      },
-    }
-  );
-
-  const imageMutation = useMutation(
-    async ({ file, userId }: { userId: string; file: File }) => {
-      const key = `${userId}/profilePicture/${file.name}`;
-
-      // deletes old profile picture if there is one
-      if (businessDetails?.profilePicture) {
-        const key = `${userId}/profilePicture/${businessDetails.profilePicture.fileName}`;
-
-        await client.graphql({
-          query: updateBusinessProfileMutation,
-          variables: {
-            input: {
-              id: businessDetails!.id,
-              profilePicture: null,
-            },
-          },
-        });
-
-        await remove({
-          key,
-        });
-      }
-
-      await uploadData({
-        key,
-        data: file,
-      }).result;
-      const imageUrl = await getUrl({ key });
-
-      const createdAt = new Date().getTime();
-
-      const profilePicture = {
-        imageUrl: imageUrl.url.href,
-        createdAt,
-        fileName: file.name,
-      };
-
-      if (imageUrl) {
-        await client.graphql({
-          query: updateBusinessProfileMutation,
-          variables: {
-            input: {
-              id: businessDetails!.id,
-              profilePicture,
-            },
-          },
-        });
-      } else {
-        throw new Error("Error uploading image");
-      }
-
-      return profilePicture;
-    },
-    {
-      onError: (err: Error) => {
-        toast(err.message, {
-          autoClose: 3000,
-          type: "error",
-          position: "bottom-right",
-        });
-      },
-      onSuccess: ({ createdAt, fileName, imageUrl }) => {
-        toast(`Successfully updated business profile picture to ${fileName}!`, {
-          autoClose: 7000,
-          type: "success",
-          position: "bottom-right",
-        });
-
-        setImageUrl(imageUrl);
-        setCreatedAt(createdAt);
-        setFileName(fileName);
       },
     }
   );
@@ -524,7 +427,7 @@ export default function HomePageClientComponent({
           <div className="flex flex-col md:flex-row">
             <div className="flex-shrink-0 flex items-start">
               <div className="relative rounded-full overflow-hidden flex">
-                <Avatar sizeClass="w-32 h-32" imgUrl={imageUrl} />
+                <Avatar sizeClass="w-32 h-32" />
                 <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-neutral-50 cursor-pointer">
                   <svg
                     width="30"
@@ -548,12 +451,6 @@ export default function HomePageClientComponent({
                   type="file"
                   accept="image/*"
                   className="absolute inset-0 opacity-0 cursor-pointer"
-                  onChange={(e) => {
-                    if (e.target.files) {
-                      const file = e.target.files[0];
-                      imageMutation.mutate({ file, userId: userId! });
-                    }
-                  }}
                 />
               </div>
             </div>

@@ -38,13 +38,6 @@ type BusinessProfile @model {
   contactInfo: ContactInfo
   operatingHours: [BusinessOperatingHours!]
   tags: [String!]
-  profilePicture: BusinessProfilePicture
-}
-
-type BusinessProfilePicture {
-  fileName: String!
-  createdAt: Float!
-  imageUrl: String!
 }
 
 type BusinessOperatingHours {

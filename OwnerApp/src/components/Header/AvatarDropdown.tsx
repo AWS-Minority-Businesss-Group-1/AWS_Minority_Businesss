@@ -6,11 +6,8 @@ import { Fragment, useContext } from "react";
 import Avatar from "@/shared/Avatar/Avatar";
 import Link from "next/link";
 import { signOut } from "@aws-amplify/auth";
-import { useBusinessProfilePictureContext } from "@/context/businessProfilePicture/BusinessProfilePictureContext";
 
 export default function AvatarDropdown() {
-  const { imageUrl } = useBusinessProfilePictureContext();
-
   return (
     <div className="AvatarDropdown relative flex">
       <Popover className="self-center">
@@ -20,7 +17,7 @@ export default function AvatarDropdown() {
               className={`inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               <Avatar
-                imgUrl={imageUrl || "/images/default-user.png"}
+                imgUrl={avatarImgs[7]}
                 sizeClass="w-8 h-8 sm:w-9 sm:h-9"
               />
             </Popover.Button>
@@ -37,10 +34,7 @@ export default function AvatarDropdown() {
                 <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
                     <div className="flex items-center space-x-3">
-                      <Avatar
-                        imgUrl={imageUrl || "/images/default-user.png"}
-                        sizeClass="w-12 h-12"
-                      />
+                      <Avatar imgUrl={avatarImgs[7]} sizeClass="w-12 h-12" />
 
                       <div className="flex-grow">
                         <h4 className="font-semibold">Eden Tuan</h4>
