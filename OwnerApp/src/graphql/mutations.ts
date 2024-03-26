@@ -230,6 +230,12 @@ export const createBusinessProfile = /* GraphQL */ `mutation CreateBusinessProfi
       __typename
     }
     tags
+    profilePicture {
+      fileName
+      createdAt
+      imageUrl
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -263,6 +269,12 @@ export const updateBusinessProfile = /* GraphQL */ `mutation UpdateBusinessProfi
       __typename
     }
     tags
+    profilePicture {
+      fileName
+      createdAt
+      imageUrl
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -296,6 +308,12 @@ export const deleteBusinessProfile = /* GraphQL */ `mutation DeleteBusinessProfi
       __typename
     }
     tags
+    profilePicture {
+      fileName
+      createdAt
+      imageUrl
+      __typename
+    }
     createdAt
     updatedAt
     __typename

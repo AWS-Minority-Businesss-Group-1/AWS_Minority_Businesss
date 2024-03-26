@@ -217,6 +217,12 @@ export const onCreateBusinessProfile = /* GraphQL */ `subscription OnCreateBusin
       __typename
     }
     tags
+    profilePicture {
+      fileName
+      createdAt
+      imageUrl
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -249,6 +255,12 @@ export const onUpdateBusinessProfile = /* GraphQL */ `subscription OnUpdateBusin
       __typename
     }
     tags
+    profilePicture {
+      fileName
+      createdAt
+      imageUrl
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -281,6 +293,12 @@ export const onDeleteBusinessProfile = /* GraphQL */ `subscription OnDeleteBusin
       __typename
     }
     tags
+    profilePicture {
+      fileName
+      createdAt
+      imageUrl
+      __typename
+    }
     createdAt
     updatedAt
     __typename
