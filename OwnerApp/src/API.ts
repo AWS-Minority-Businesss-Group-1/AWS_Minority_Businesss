@@ -128,7 +128,6 @@ export type BusinessProfile = {
   contactInfo?: ContactInfo | null,
   operatingHours?:  Array<BusinessOperatingHours > | null,
   tags?: Array< string > | null,
-  profilePicture?: BusinessProfilePicture | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -144,13 +143,6 @@ export type BusinessOperatingHours = {
   dayOfWeek: string,
   opens: string,
   closes: string,
-};
-
-export type BusinessProfilePicture = {
-  __typename: "BusinessProfilePicture",
-  fileName: string,
-  createdAt: number,
-  imageUrl: string,
 };
 
 export type UpdateAccountInput = {
@@ -213,7 +205,6 @@ export type CreateBusinessProfileInput = {
   contactInfo?: ContactInfoInput | null,
   operatingHours?: Array< BusinessOperatingHoursInput > | null,
   tags?: Array< string > | null,
-  profilePicture?: BusinessProfilePictureInput | null,
 };
 
 export type ContactInfoInput = {
@@ -225,12 +216,6 @@ export type BusinessOperatingHoursInput = {
   dayOfWeek: string,
   opens: string,
   closes: string,
-};
-
-export type BusinessProfilePictureInput = {
-  fileName: string,
-  createdAt: number,
-  imageUrl: string,
 };
 
 export type ModelBusinessProfileConditionInput = {
@@ -257,7 +242,6 @@ export type UpdateBusinessProfileInput = {
   contactInfo?: ContactInfoInput | null,
   operatingHours?: Array< BusinessOperatingHoursInput > | null,
   tags?: Array< string > | null,
-  profilePicture?: BusinessProfilePictureInput | null,
 };
 
 export type DeleteBusinessProfileInput = {
@@ -604,12 +588,6 @@ export type CreateBusinessProfileMutation = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
-    profilePicture?:  {
-      __typename: "BusinessProfilePicture",
-      fileName: string,
-      createdAt: number,
-      imageUrl: string,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -642,12 +620,6 @@ export type UpdateBusinessProfileMutation = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
-    profilePicture?:  {
-      __typename: "BusinessProfilePicture",
-      fileName: string,
-      createdAt: number,
-      imageUrl: string,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -680,12 +652,6 @@ export type DeleteBusinessProfileMutation = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
-    profilePicture?:  {
-      __typename: "BusinessProfilePicture",
-      fileName: string,
-      createdAt: number,
-      imageUrl: string,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -828,12 +794,6 @@ export type GetBusinessProfileQuery = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
-    profilePicture?:  {
-      __typename: "BusinessProfilePicture",
-      fileName: string,
-      createdAt: number,
-      imageUrl: string,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1077,12 +1037,6 @@ export type OnCreateBusinessProfileSubscription = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
-    profilePicture?:  {
-      __typename: "BusinessProfilePicture",
-      fileName: string,
-      createdAt: number,
-      imageUrl: string,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1114,12 +1068,6 @@ export type OnUpdateBusinessProfileSubscription = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
-    profilePicture?:  {
-      __typename: "BusinessProfilePicture",
-      fileName: string,
-      createdAt: number,
-      imageUrl: string,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1151,12 +1099,6 @@ export type OnDeleteBusinessProfileSubscription = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
-    profilePicture?:  {
-      __typename: "BusinessProfilePicture",
-      fileName: string,
-      createdAt: number,
-      imageUrl: string,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,

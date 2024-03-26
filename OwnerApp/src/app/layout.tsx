@@ -7,12 +7,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import LayoutClientChild from "../components/layout-client-child";
 import { Amplify } from "aws-amplify";
-import config from "../amplifyconfiguration.json";
+import config from '../amplifyconfiguration.json';
 import { QueryClient, QueryClientProvider } from "react-query";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Head from "next/head";
 import { AuthProvider } from "@/context/auth/AuthContext";
-import { BusinessProfilePictureProvider } from "@/context/businessProfilePicture/BusinessProfilePictureContext";
 
 const queryClient = new QueryClient();
 
@@ -33,13 +32,11 @@ export default function RootLayout({
       <ErrorBoundary>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
-            <BusinessProfilePictureProvider>
-              <LayoutClientChild>
-                {children}
+            <LayoutClientChild>
+              {children}
 
-                <ToastContainer />
-              </LayoutClientChild>
-            </BusinessProfilePictureProvider>
+              <ToastContainer />
+            </LayoutClientChild>
           </AuthProvider>
         </QueryClientProvider>
       </ErrorBoundary>
