@@ -37,7 +37,6 @@ export default function HomePageClientComponent({
   } = useBusinessProfilePictureContext();
 
   useEffect(() => {
-    console.log(businessDetails?.profilePicture);
     if (businessDetails?.profilePicture) {
       setImageUrl(businessDetails.profilePicture.imageUrl);
       setCreatedAt(businessDetails.profilePicture.createdAt);

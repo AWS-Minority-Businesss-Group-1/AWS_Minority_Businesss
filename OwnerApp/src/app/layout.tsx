@@ -12,11 +12,71 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Head from "next/head";
 import { AuthProvider } from "@/context/auth/AuthContext";
-import { BusinessProfilePictureProvider } from "@/context/businessProfilePicture/BusinessProfilePictureContext";
+import {
+  BusinessProfilePictureProvider,
+  useBusinessProfilePictureContext,
+} from "@/context/businessProfilePicture/BusinessProfilePictureContext";
+import { Account, BusinessProfile } from "@/API";
+import { useEffect } from "react";
+import fetchAccount from "@/utils/data/fetchAccount";
+import Cookies from "js-cookie";
+import fetchBusinessProfile from "@/utils/data/fetchBusinessProfile";
 
 const queryClient = new QueryClient();
 
 Amplify.configure(config);
+
+function App({ children }: { children: React.ReactNode }) {
+  const {
+    imageUrl,
+    setImageUrl,
+    createdAt,
+    setCreatedAt,
+    fileName,
+    setFileName,
+  } = useBusinessProfilePictureContext();
+
+  useEffect(() => {
+    async function fetchBusinessProfilePicture() {
+      const userId = Cookies.get("userId");
+
+      let userAccount: Account | undefined;
+
+      if (userId) {
+        userAccount = await fetchAccount({ userId });
+      }
+
+      let businessProfile: BusinessProfile | undefined;
+      if (
+        userAccount &&
+        userAccount.accountBusinessProfileId &&
+        userAccount.businessProfile
+      ) {
+        businessProfile = await fetchBusinessProfile({
+          id: userAccount?.accountBusinessProfileId,
+        });
+      }
+
+      const businessProfilePicture = businessProfile?.profilePicture?.imageUrl;
+
+      if (businessProfilePicture) {
+        setImageUrl(businessProfilePicture);
+      }
+    }
+
+    if (!imageUrl) {
+      fetchBusinessProfilePicture();
+    }
+  }, []);
+
+  return (
+    <LayoutClientChild>
+      {children}
+
+      <ToastContainer />
+    </LayoutClientChild>
+  );
+}
 
 export default function RootLayout({
   children,
@@ -34,11 +94,7 @@ export default function RootLayout({
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
             <BusinessProfilePictureProvider>
-              <LayoutClientChild>
-                {children}
-
-                <ToastContainer />
-              </LayoutClientChild>
+              <App>{children}</App>
             </BusinessProfilePictureProvider>
           </AuthProvider>
         </QueryClientProvider>

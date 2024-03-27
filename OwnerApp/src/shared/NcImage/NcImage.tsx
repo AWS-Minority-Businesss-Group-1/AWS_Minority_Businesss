@@ -21,10 +21,10 @@ const NcImage: FC<NcImageProps> = ({
         <Image
           className={className}
           alt={alt}
-          sizes={sizes}
           {...args}
           src={src}
-          fill={fill}
+          layout="fill"
+          objectFit="contain"
         />
       ) : null}
     </div>

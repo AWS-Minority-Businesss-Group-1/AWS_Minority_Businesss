@@ -223,6 +223,10 @@ export const onCreateBusinessProfile = /* GraphQL */ `subscription OnCreateBusin
       imageUrl
       __typename
     }
+    albums {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -259,6 +263,10 @@ export const onUpdateBusinessProfile = /* GraphQL */ `subscription OnUpdateBusin
       fileName
       createdAt
       imageUrl
+      __typename
+    }
+    albums {
+      nextToken
       __typename
     }
     createdAt
@@ -299,6 +307,10 @@ export const onDeleteBusinessProfile = /* GraphQL */ `subscription OnDeleteBusin
       imageUrl
       __typename
     }
+    albums {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -307,4 +319,49 @@ export const onDeleteBusinessProfile = /* GraphQL */ `subscription OnDeleteBusin
 ` as GeneratedSubscription<
   APITypes.OnDeleteBusinessProfileSubscriptionVariables,
   APITypes.OnDeleteBusinessProfileSubscription
+>;
+export const onCreateAlbum = /* GraphQL */ `subscription OnCreateAlbum($filter: ModelSubscriptionAlbumFilterInput) {
+  onCreateAlbum(filter: $filter) {
+    id
+    fileName
+    createdAt
+    imageUrl
+    businessProfileId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateAlbumSubscriptionVariables,
+  APITypes.OnCreateAlbumSubscription
+>;
+export const onUpdateAlbum = /* GraphQL */ `subscription OnUpdateAlbum($filter: ModelSubscriptionAlbumFilterInput) {
+  onUpdateAlbum(filter: $filter) {
+    id
+    fileName
+    createdAt
+    imageUrl
+    businessProfileId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateAlbumSubscriptionVariables,
+  APITypes.OnUpdateAlbumSubscription
+>;
+export const onDeleteAlbum = /* GraphQL */ `subscription OnDeleteAlbum($filter: ModelSubscriptionAlbumFilterInput) {
+  onDeleteAlbum(filter: $filter) {
+    id
+    fileName
+    createdAt
+    imageUrl
+    businessProfileId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteAlbumSubscriptionVariables,
+  APITypes.OnDeleteAlbumSubscription
 >;

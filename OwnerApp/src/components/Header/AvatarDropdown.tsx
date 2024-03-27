@@ -10,6 +10,7 @@ import { useBusinessProfilePictureContext } from "@/context/businessProfilePictu
 
 export default function AvatarDropdown() {
   const { imageUrl } = useBusinessProfilePictureContext();
+  console.log("imageUrl", imageUrl);
 
   return (
     <div className="AvatarDropdown relative flex">
