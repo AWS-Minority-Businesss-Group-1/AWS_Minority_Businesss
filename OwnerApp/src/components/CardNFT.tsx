@@ -15,7 +15,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 export interface CardNFTProps {
   className?: string;
   isLiked?: boolean;
-  imageUrl: string;
+  imageUrl?: string;
   onDelete?: () => void;
 }
 
@@ -31,7 +31,7 @@ const CardNFT: FC<CardNFTProps> = ({
         <div>
           <NcImage
             containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 rounded-3xl overflow-hidden z-0"
-            src={imageUrl}
+            src={imageUrl || ""}
             className="object-cover w-full h-full group-hover:scale-[1.03] transition-transform duration-300 ease-in-out will-change-transform"
           />
         </div>
