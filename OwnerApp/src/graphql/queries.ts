@@ -146,6 +146,10 @@ export const getBusinessProfile = /* GraphQL */ `query GetBusinessProfile($id: I
       imageUrl
       __typename
     }
+    albums {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -181,4 +185,70 @@ export const listBusinessProfiles = /* GraphQL */ `query ListBusinessProfiles(
 ` as GeneratedQuery<
   APITypes.ListBusinessProfilesQueryVariables,
   APITypes.ListBusinessProfilesQuery
+>;
+export const getAlbum = /* GraphQL */ `query GetAlbum($id: ID!) {
+  getAlbum(id: $id) {
+    id
+    fileName
+    createdAt
+    imageUrl
+    businessProfileId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetAlbumQueryVariables, APITypes.GetAlbumQuery>;
+export const listAlbums = /* GraphQL */ `query ListAlbums(
+  $filter: ModelAlbumFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAlbums(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      fileName
+      createdAt
+      imageUrl
+      businessProfileId
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListAlbumsQueryVariables,
+  APITypes.ListAlbumsQuery
+>;
+export const albumsByBusinessProfileId = /* GraphQL */ `query AlbumsByBusinessProfileId(
+  $businessProfileId: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelAlbumFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  albumsByBusinessProfileId(
+    businessProfileId: $businessProfileId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      fileName
+      createdAt
+      imageUrl
+      businessProfileId
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.AlbumsByBusinessProfileIdQueryVariables,
+  APITypes.AlbumsByBusinessProfileIdQuery
 >;

@@ -2,10 +2,7 @@ import React, { FC } from "react";
 import Logo from "@/shared/Logo/Logo";
 import MenuBar from "@/shared/MenuBar/MenuBar";
 import SwitchDarkMode from "@/shared/SwitchDarkMode/SwitchDarkMode";
-import NotifyDropdown from "./NotifyDropdown";
 import AvatarDropdown from "./AvatarDropdown";
-import Input from "@/shared/Input/Input";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Navigation from "@/shared/Navigation/Navigation";
 
 export interface MainNav2LoggedProps {}
@@ -24,13 +21,11 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
               <div className="self-center hidden sm:block h-6 border-l border-neutral-300 dark:border-neutral-6000"></div>
               <div className="flex">
                 <SwitchDarkMode />
-                <NotifyDropdown />
               </div>
               <div></div>
               <AvatarDropdown />
             </div>
             <div className="flex items-center space-x-1 xl:hidden">
-              <NotifyDropdown />
               <AvatarDropdown />
               <MenuBar />
             </div>
