@@ -1,45 +1,28 @@
-import { Account, BusinessProfile, UserProfile } from "@/API";
-import MyReviewsClientComponent from "@/page_components/reviews/MyReviewsClientComponent";
-import fetchAccount from "@/utils/data/fetchAccount";
-import fetchBusinessProfile from "@/utils/data/fetchBusinessProfile";
-import {
-  fetchBusinessReviews,
-  individualReviewReturnType,
-} from "@/utils/data/fetchBusinessReviews";
-import { cookies } from "next/headers";
+import React from "react";
+import SectionAds from "./SectionAds";
+import SectionMagazine5 from "./SectionMagazine5";
+import SectionLatestPosts from "./SectionLatestPosts";
+import BgGlassmorphism from "@/components/BgGlassmorphism/BgGlassmorphism";
+import SectionBecomeAnAuthor from "@/components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
 
-export default async function ReviewsPage() {
-  const cookie = cookies();
-  const userId = cookie.get("userId")?.value;
+// DEMO DATA
 
-  let userAccount: Account | undefined;
-  if (userId) {
-    userAccount = await fetchAccount({ userId });
-  }
-
-  let businessReviews: individualReviewReturnType[] = [];
-  if (userAccount && userAccount.accountBusinessProfileId) {
-    businessReviews = await fetchBusinessReviews({
-      businessId: userAccount.accountBusinessProfileId,
-    });
-  }
-
-  let businessProfile: BusinessProfile | undefined;
-
-  if (
-    userAccount &&
-    userAccount.accountBusinessProfileId &&
-    userAccount.businessProfile
-  ) {
-    businessProfile = await fetchBusinessProfile({
-      id: userAccount?.accountBusinessProfileId,
-    });
-  }
-
+const BlogPage: React.FC = () => {
   return (
-    <MyReviewsClientComponent
-      businessProfile={businessProfile}
-      businessReviews={businessReviews}
-    />
+    <div className="nc-BlogPage overflow-hidden relative">
+      {/* ======== BG GLASS ======== */}
+      <BgGlassmorphism />
+      {/* ======== ALL SECTIONS ======== */}
+      <div className="container relative">
+        {/* === SECTION 8 === */}
+        <SectionLatestPosts className="py-16 lg:py-28" />
+
+        <div className="pb-16 lg:pb-28">
+          <hr className="border-neutral-200 dark:border-neutral-700" />
+        </div>
+      </div>
+    </div>
   );
-}
+};
+
+export default BlogPage;

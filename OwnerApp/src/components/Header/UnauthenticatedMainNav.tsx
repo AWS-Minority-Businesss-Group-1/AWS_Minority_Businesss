@@ -3,6 +3,8 @@ import Logo from "@/shared/Logo/Logo";
 import SwitchDarkMode from "@/shared/SwitchDarkMode/SwitchDarkMode";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import { usePathname } from "next/navigation";
+import NotifyDropdown from "./NotifyDropdown";
+import AvatarDropdown from "./AvatarDropdown";
 import MenuBar from "@/shared/MenuBar/MenuBar";
 
 export interface UnauthenticatedMainNavProps {}

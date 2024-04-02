@@ -5,6 +5,7 @@ import { Poppins } from "next/font/google";
 import "@/styles/index.scss";
 import "rc-slider/assets/index.css";
 import Footer from "@/shared/Footer/Footer";
+import MusicPlayer from "@/components/MusicPlayer/MusicPlayer";
 import SiteHeader from "@/app/SiteHeader";
 import UnauthenticatedSiteHeader from "../app/UnauthenticatedSiteHeader";
 import { AuthProvider, useAuthContext } from "@/context/auth/AuthContext";
@@ -28,6 +29,7 @@ const LayoutClientChild: React.FC<LayoutChildProps> = ({ children }) => {
         {user ? <SiteHeader /> : <UnauthenticatedSiteHeader />}
         {children}
         <Footer />
+        <MusicPlayer />
       </body>
     </html>
   );
