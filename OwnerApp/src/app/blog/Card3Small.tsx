@@ -20,7 +20,7 @@ const Card3Small: FC<Card3SmallProps> = ({ className = "h-full" }) => {
         title={"title"}
       ></Link>
       <div className="relative space-y-2">
-        <PostCardMeta />
+        {/* <PostCardMeta /> */}
         <h2 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100">
           <Link
             href={"/blog-single"}
