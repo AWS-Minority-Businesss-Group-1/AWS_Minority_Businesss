@@ -13,10 +13,10 @@ const WidgetPosts: FC<WidgetPostsProps> = ({
       className={`nc-WidgetPosts rounded-3xl overflow-hidden ${className}`}
       data-nc-id="WidgetPosts"
     >
-      <WidgetHeading1
+      {/* <WidgetHeading1
         title="🎯 Popular Posts"
         viewAll={{ label: "View all", href: "/#" }}
-      />
+      /> */}
       <div className="flex flex-col divide-y divide-neutral-200 dark:divide-neutral-700">
         {/* {[1, 1, 1, 1, 1, 1].map((_, index) => (
           <Card3Small
