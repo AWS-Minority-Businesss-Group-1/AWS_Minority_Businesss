@@ -16,6 +16,8 @@ interface BusinessProfilePictureContextElements {
   setCreatedAt: React.Dispatch<React.SetStateAction<number>>;
   fileName: string;
   setFileName: React.Dispatch<React.SetStateAction<string>>;
+  businessNameContext: string;
+  setBusinessNameContext: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const BusinessProfilePictureContext =
@@ -26,6 +28,8 @@ const BusinessProfilePictureContext =
     setCreatedAt: () => {},
     fileName: "",
     setFileName: () => {},
+    businessNameContext: "",
+    setBusinessNameContext: () => {},
   });
 
 export function useBusinessProfilePictureContext() {
@@ -36,6 +40,7 @@ export const BusinessProfilePictureProvider = ({ children }: any) => {
   const [imageUrl, setImageUrl] = useState<string>("");
   const [createdAt, setCreatedAt] = useState<number>(0);
   const [fileName, setFileName] = useState<string>("");
+  const [businessNameContext, setBusinessNameContext] = useState<string>("");
 
   return (
     <BusinessProfilePictureContext.Provider
@@ -46,6 +51,8 @@ export const BusinessProfilePictureProvider = ({ children }: any) => {
         setCreatedAt,
         fileName,
         setFileName,
+        businessNameContext,
+        setBusinessNameContext,
       }}
     >
       {children}

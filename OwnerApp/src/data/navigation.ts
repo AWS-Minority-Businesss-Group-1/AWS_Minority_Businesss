@@ -24,7 +24,7 @@ const otherPageChildMenus: NavItemType[] = [
 export const NAVIGATION_DEMO_2: NavItemType[] = [
   {
     id: ncNanoId(),
-    href: "/",
+    href: "#",
     name: "Discover",
     type: "dropdown",
     children: otherPageChildMenus,
