@@ -94,8 +94,8 @@ export default function HomePageClientComponent({
       const key = `${userId}/profilePicture/${file.name}`;
 
       // deletes old profile picture if there is one
-      if (businessDetails?.profilePicture) {
-        const key = `${userId}/profilePicture/${businessDetails.profilePicture.fileName}`;
+      if (fileName) {
+        const key = `${userId}/profilePicture/${fileName}`;
 
         await client.graphql({
           query: updateBusinessProfileMutation,

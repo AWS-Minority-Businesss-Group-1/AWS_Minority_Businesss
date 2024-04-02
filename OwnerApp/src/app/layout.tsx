@@ -27,14 +27,8 @@ const queryClient = new QueryClient();
 Amplify.configure(config);
 
 function App({ children }: { children: React.ReactNode }) {
-  const {
-    imageUrl,
-    setImageUrl,
-    createdAt,
-    setCreatedAt,
-    fileName,
-    setFileName,
-  } = useBusinessProfilePictureContext();
+  const { imageUrl, setImageUrl, setBusinessNameContext } =
+    useBusinessProfilePictureContext();
 
   useEffect(() => {
     async function fetchBusinessProfilePicture() {
@@ -55,6 +49,10 @@ function App({ children }: { children: React.ReactNode }) {
         businessProfile = await fetchBusinessProfile({
           id: userAccount?.accountBusinessProfileId,
         });
+      }
+
+      if (businessProfile?.name) {
+        setBusinessNameContext(businessProfile.name);
       }
 
       const businessProfilePicture = businessProfile?.profilePicture?.imageUrl;
