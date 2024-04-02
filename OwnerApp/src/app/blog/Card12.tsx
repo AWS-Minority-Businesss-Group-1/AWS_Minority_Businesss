@@ -43,7 +43,7 @@ const Card12: FC<Card12Props> = ({ className = "h-full" }) => {
             tempore mollitia? Aperiam.
           </span>
         </span>
-        <PostCardMeta className="mt-5" />
+        {/* <PostCardMeta className="mt-5" /> */}
       </div>
     </div>
   );

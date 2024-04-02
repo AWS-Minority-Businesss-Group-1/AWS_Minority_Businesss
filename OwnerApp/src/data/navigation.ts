@@ -11,8 +11,8 @@ const otherPageChildMenus: NavItemType[] = [
   },
   {
     id: ncNanoId(),
-    href: "/files",
-    name: "Files page",
+    href: "/album",
+    name: "Album",
   },
   {
     id: ncNanoId(),
@@ -24,14 +24,9 @@ const otherPageChildMenus: NavItemType[] = [
 export const NAVIGATION_DEMO_2: NavItemType[] = [
   {
     id: ncNanoId(),
-    href: "/",
+    href: "#",
     name: "Discover",
     type: "dropdown",
     children: otherPageChildMenus,
-  },
-  {
-    id: ncNanoId(),
-    href: "/upload-item",
-    name: "Help center",
   },
 ];

@@ -7,15 +7,74 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import LayoutClientChild from "../components/layout-client-child";
 import { Amplify } from "aws-amplify";
-import config from '../amplifyconfiguration.json';
+import config from "../amplifyconfiguration.json";
 import { QueryClient, QueryClientProvider } from "react-query";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Head from "next/head";
 import { AuthProvider } from "@/context/auth/AuthContext";
+import {
+  BusinessProfilePictureProvider,
+  useBusinessProfilePictureContext,
+} from "@/context/businessProfilePicture/BusinessProfilePictureContext";
+import { Account, BusinessProfile } from "@/API";
+import { useEffect } from "react";
+import fetchAccount from "@/utils/data/fetchAccount";
+import Cookies from "js-cookie";
+import fetchBusinessProfile from "@/utils/data/fetchBusinessProfile";
 
 const queryClient = new QueryClient();
 
 Amplify.configure(config);
+
+function App({ children }: { children: React.ReactNode }) {
+  const { imageUrl, setImageUrl, setBusinessNameContext } =
+    useBusinessProfilePictureContext();
+
+  useEffect(() => {
+    async function fetchBusinessProfilePicture() {
+      const userId = Cookies.get("userId");
+
+      let userAccount: Account | undefined;
+
+      if (userId) {
+        userAccount = await fetchAccount({ userId });
+      }
+
+      let businessProfile: BusinessProfile | undefined;
+      if (
+        userAccount &&
+        userAccount.accountBusinessProfileId &&
+        userAccount.businessProfile
+      ) {
+        businessProfile = await fetchBusinessProfile({
+          id: userAccount?.accountBusinessProfileId,
+        });
+      }
+
+      if (businessProfile?.name) {
+        setBusinessNameContext(businessProfile.name);
+      }
+
+      const businessProfilePicture = businessProfile?.profilePicture?.imageUrl;
+
+      if (businessProfilePicture) {
+        setImageUrl(businessProfilePicture);
+      }
+    }
+
+    if (!imageUrl) {
+      fetchBusinessProfilePicture();
+    }
+  }, []);
+
+  return (
+    <LayoutClientChild>
+      {children}
+
+      <ToastContainer />
+    </LayoutClientChild>
+  );
+}
 
 export default function RootLayout({
   children,
@@ -32,11 +91,9 @@ export default function RootLayout({
       <ErrorBoundary>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
-            <LayoutClientChild>
-              {children}
-
-              <ToastContainer />
-            </LayoutClientChild>
+            <BusinessProfilePictureProvider>
+              <App>{children}</App>
+            </BusinessProfilePictureProvider>
           </AuthProvider>
         </QueryClientProvider>
       </ErrorBoundary>

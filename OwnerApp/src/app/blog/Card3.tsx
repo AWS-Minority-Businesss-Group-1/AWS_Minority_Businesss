@@ -38,7 +38,7 @@ const Card3: FC<Card3Props> = ({ className = "h-full" }) => {
               </span>
             </div>
           </div>
-          <PostCardMeta />
+          {/* <PostCardMeta /> */}
         </div>
       </div>
 

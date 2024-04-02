@@ -128,6 +128,8 @@ export type BusinessProfile = {
   contactInfo?: ContactInfo | null,
   operatingHours?:  Array<BusinessOperatingHours > | null,
   tags?: Array< string > | null,
+  profilePicture?: BusinessProfilePicture | null,
+  albums?: ModelAlbumConnection | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -143,6 +145,29 @@ export type BusinessOperatingHours = {
   dayOfWeek: string,
   opens: string,
   closes: string,
+};
+
+export type BusinessProfilePicture = {
+  __typename: "BusinessProfilePicture",
+  fileName: string,
+  createdAt: number,
+  imageUrl: string,
+};
+
+export type ModelAlbumConnection = {
+  __typename: "ModelAlbumConnection",
+  items:  Array<Album | null >,
+  nextToken?: string | null,
+};
+
+export type Album = {
+  __typename: "Album",
+  id: string,
+  fileName: string,
+  createdAt: number,
+  imageUrl: string,
+  businessProfileId: string,
+  updatedAt: string,
 };
 
 export type UpdateAccountInput = {
@@ -205,6 +230,7 @@ export type CreateBusinessProfileInput = {
   contactInfo?: ContactInfoInput | null,
   operatingHours?: Array< BusinessOperatingHoursInput > | null,
   tags?: Array< string > | null,
+  profilePicture?: BusinessProfilePictureInput | null,
 };
 
 export type ContactInfoInput = {
@@ -216,6 +242,12 @@ export type BusinessOperatingHoursInput = {
   dayOfWeek: string,
   opens: string,
   closes: string,
+};
+
+export type BusinessProfilePictureInput = {
+  fileName: string,
+  createdAt: number,
+  imageUrl: string,
 };
 
 export type ModelBusinessProfileConditionInput = {
@@ -242,9 +274,52 @@ export type UpdateBusinessProfileInput = {
   contactInfo?: ContactInfoInput | null,
   operatingHours?: Array< BusinessOperatingHoursInput > | null,
   tags?: Array< string > | null,
+  profilePicture?: BusinessProfilePictureInput | null,
 };
 
 export type DeleteBusinessProfileInput = {
+  id: string,
+};
+
+export type CreateAlbumInput = {
+  id?: string | null,
+  fileName: string,
+  createdAt: number,
+  imageUrl: string,
+  businessProfileId: string,
+};
+
+export type ModelAlbumConditionInput = {
+  fileName?: ModelStringInput | null,
+  createdAt?: ModelFloatInput | null,
+  imageUrl?: ModelStringInput | null,
+  businessProfileId?: ModelIDInput | null,
+  and?: Array< ModelAlbumConditionInput | null > | null,
+  or?: Array< ModelAlbumConditionInput | null > | null,
+  not?: ModelAlbumConditionInput | null,
+};
+
+export type ModelFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type UpdateAlbumInput = {
+  id: string,
+  fileName?: string | null,
+  createdAt?: number | null,
+  imageUrl?: string | null,
+  businessProfileId?: string | null,
+};
+
+export type DeleteAlbumInput = {
   id: string,
 };
 
@@ -304,6 +379,23 @@ export type ModelBusinessProfileConnection = {
   items:  Array<BusinessProfile | null >,
   nextToken?: string | null,
 };
+
+export type ModelAlbumFilterInput = {
+  id?: ModelIDInput | null,
+  fileName?: ModelStringInput | null,
+  createdAt?: ModelFloatInput | null,
+  imageUrl?: ModelStringInput | null,
+  businessProfileId?: ModelIDInput | null,
+  and?: Array< ModelAlbumFilterInput | null > | null,
+  or?: Array< ModelAlbumFilterInput | null > | null,
+  not?: ModelAlbumFilterInput | null,
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
 
 export type ModelSubscriptionAccountFilterInput = {
   id?: ModelSubscriptionIDInput | null,
@@ -367,6 +459,28 @@ export type ModelSubscriptionBusinessProfileFilterInput = {
   tags?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionBusinessProfileFilterInput | null > | null,
   or?: Array< ModelSubscriptionBusinessProfileFilterInput | null > | null,
+};
+
+export type ModelSubscriptionAlbumFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  fileName?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionFloatInput | null,
+  imageUrl?: ModelSubscriptionStringInput | null,
+  businessProfileId?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionAlbumFilterInput | null > | null,
+  or?: Array< ModelSubscriptionAlbumFilterInput | null > | null,
+};
+
+export type ModelSubscriptionFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
 };
 
 export type CreateAccountMutationVariables = {
@@ -588,6 +702,16 @@ export type CreateBusinessProfileMutation = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
+    profilePicture?:  {
+      __typename: "BusinessProfilePicture",
+      fileName: string,
+      createdAt: number,
+      imageUrl: string,
+    } | null,
+    albums?:  {
+      __typename: "ModelAlbumConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -620,6 +744,16 @@ export type UpdateBusinessProfileMutation = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
+    profilePicture?:  {
+      __typename: "BusinessProfilePicture",
+      fileName: string,
+      createdAt: number,
+      imageUrl: string,
+    } | null,
+    albums?:  {
+      __typename: "ModelAlbumConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -652,7 +786,68 @@ export type DeleteBusinessProfileMutation = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
+    profilePicture?:  {
+      __typename: "BusinessProfilePicture",
+      fileName: string,
+      createdAt: number,
+      imageUrl: string,
+    } | null,
+    albums?:  {
+      __typename: "ModelAlbumConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateAlbumMutationVariables = {
+  input: CreateAlbumInput,
+  condition?: ModelAlbumConditionInput | null,
+};
+
+export type CreateAlbumMutation = {
+  createAlbum?:  {
+    __typename: "Album",
+    id: string,
+    fileName: string,
+    createdAt: number,
+    imageUrl: string,
+    businessProfileId: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateAlbumMutationVariables = {
+  input: UpdateAlbumInput,
+  condition?: ModelAlbumConditionInput | null,
+};
+
+export type UpdateAlbumMutation = {
+  updateAlbum?:  {
+    __typename: "Album",
+    id: string,
+    fileName: string,
+    createdAt: number,
+    imageUrl: string,
+    businessProfileId: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteAlbumMutationVariables = {
+  input: DeleteAlbumInput,
+  condition?: ModelAlbumConditionInput | null,
+};
+
+export type DeleteAlbumMutation = {
+  deleteAlbum?:  {
+    __typename: "Album",
+    id: string,
+    fileName: string,
+    createdAt: number,
+    imageUrl: string,
+    businessProfileId: string,
     updatedAt: string,
   } | null,
 };
@@ -794,6 +989,16 @@ export type GetBusinessProfileQuery = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
+    profilePicture?:  {
+      __typename: "BusinessProfilePicture",
+      fileName: string,
+      createdAt: number,
+      imageUrl: string,
+    } | null,
+    albums?:  {
+      __typename: "ModelAlbumConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -819,6 +1024,68 @@ export type ListBusinessProfilesQuery = {
       website?: string | null,
       tags?: Array< string > | null,
       createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetAlbumQueryVariables = {
+  id: string,
+};
+
+export type GetAlbumQuery = {
+  getAlbum?:  {
+    __typename: "Album",
+    id: string,
+    fileName: string,
+    createdAt: number,
+    imageUrl: string,
+    businessProfileId: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListAlbumsQueryVariables = {
+  filter?: ModelAlbumFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListAlbumsQuery = {
+  listAlbums?:  {
+    __typename: "ModelAlbumConnection",
+    items:  Array< {
+      __typename: "Album",
+      id: string,
+      fileName: string,
+      createdAt: number,
+      imageUrl: string,
+      businessProfileId: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type AlbumsByBusinessProfileIdQueryVariables = {
+  businessProfileId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelAlbumFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type AlbumsByBusinessProfileIdQuery = {
+  albumsByBusinessProfileId?:  {
+    __typename: "ModelAlbumConnection",
+    items:  Array< {
+      __typename: "Album",
+      id: string,
+      fileName: string,
+      createdAt: number,
+      imageUrl: string,
+      businessProfileId: string,
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
@@ -1037,6 +1304,16 @@ export type OnCreateBusinessProfileSubscription = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
+    profilePicture?:  {
+      __typename: "BusinessProfilePicture",
+      fileName: string,
+      createdAt: number,
+      imageUrl: string,
+    } | null,
+    albums?:  {
+      __typename: "ModelAlbumConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1068,6 +1345,16 @@ export type OnUpdateBusinessProfileSubscription = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
+    profilePicture?:  {
+      __typename: "BusinessProfilePicture",
+      fileName: string,
+      createdAt: number,
+      imageUrl: string,
+    } | null,
+    albums?:  {
+      __typename: "ModelAlbumConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1099,7 +1386,65 @@ export type OnDeleteBusinessProfileSubscription = {
       closes: string,
     } > | null,
     tags?: Array< string > | null,
+    profilePicture?:  {
+      __typename: "BusinessProfilePicture",
+      fileName: string,
+      createdAt: number,
+      imageUrl: string,
+    } | null,
+    albums?:  {
+      __typename: "ModelAlbumConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateAlbumSubscriptionVariables = {
+  filter?: ModelSubscriptionAlbumFilterInput | null,
+};
+
+export type OnCreateAlbumSubscription = {
+  onCreateAlbum?:  {
+    __typename: "Album",
+    id: string,
+    fileName: string,
+    createdAt: number,
+    imageUrl: string,
+    businessProfileId: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateAlbumSubscriptionVariables = {
+  filter?: ModelSubscriptionAlbumFilterInput | null,
+};
+
+export type OnUpdateAlbumSubscription = {
+  onUpdateAlbum?:  {
+    __typename: "Album",
+    id: string,
+    fileName: string,
+    createdAt: number,
+    imageUrl: string,
+    businessProfileId: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteAlbumSubscriptionVariables = {
+  filter?: ModelSubscriptionAlbumFilterInput | null,
+};
+
+export type OnDeleteAlbumSubscription = {
+  onDeleteAlbum?:  {
+    __typename: "Album",
+    id: string,
+    fileName: string,
+    createdAt: number,
+    imageUrl: string,
+    businessProfileId: string,
     updatedAt: string,
   } | null,
 };

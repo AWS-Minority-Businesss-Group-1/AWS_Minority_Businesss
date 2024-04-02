@@ -9,16 +9,26 @@ export default async function Home() {
   const userId = cookie.get("userId")?.value;
 
   let userAccount: Account | undefined;
-
   if (userId) {
     userAccount = await fetchAccount({ userId });
   }
 
   let businessProfile: BusinessProfile | undefined;
 
-  if (userAccount && userAccount.businessProfile) {
-    businessProfile = userAccount.businessProfile;
+  if (
+    userAccount &&
+    userAccount.accountBusinessProfileId &&
+    userAccount.businessProfile
+  ) {
+    businessProfile = await fetchBusinessProfile({
+      id: userAccount?.accountBusinessProfileId,
+    });
   }
 
-  return <HomePageClientComponent businessDetails={businessProfile} />;
+  return (
+    <HomePageClientComponent
+      businessDetails={businessProfile}
+      userId={userId}
+    />
+  );
 }

@@ -230,6 +230,16 @@ export const createBusinessProfile = /* GraphQL */ `mutation CreateBusinessProfi
       __typename
     }
     tags
+    profilePicture {
+      fileName
+      createdAt
+      imageUrl
+      __typename
+    }
+    albums {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -263,6 +273,16 @@ export const updateBusinessProfile = /* GraphQL */ `mutation UpdateBusinessProfi
       __typename
     }
     tags
+    profilePicture {
+      fileName
+      createdAt
+      imageUrl
+      __typename
+    }
+    albums {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -296,6 +316,16 @@ export const deleteBusinessProfile = /* GraphQL */ `mutation DeleteBusinessProfi
       __typename
     }
     tags
+    profilePicture {
+      fileName
+      createdAt
+      imageUrl
+      __typename
+    }
+    albums {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -304,4 +334,58 @@ export const deleteBusinessProfile = /* GraphQL */ `mutation DeleteBusinessProfi
 ` as GeneratedMutation<
   APITypes.DeleteBusinessProfileMutationVariables,
   APITypes.DeleteBusinessProfileMutation
+>;
+export const createAlbum = /* GraphQL */ `mutation CreateAlbum(
+  $input: CreateAlbumInput!
+  $condition: ModelAlbumConditionInput
+) {
+  createAlbum(input: $input, condition: $condition) {
+    id
+    fileName
+    createdAt
+    imageUrl
+    businessProfileId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateAlbumMutationVariables,
+  APITypes.CreateAlbumMutation
+>;
+export const updateAlbum = /* GraphQL */ `mutation UpdateAlbum(
+  $input: UpdateAlbumInput!
+  $condition: ModelAlbumConditionInput
+) {
+  updateAlbum(input: $input, condition: $condition) {
+    id
+    fileName
+    createdAt
+    imageUrl
+    businessProfileId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateAlbumMutationVariables,
+  APITypes.UpdateAlbumMutation
+>;
+export const deleteAlbum = /* GraphQL */ `mutation DeleteAlbum(
+  $input: DeleteAlbumInput!
+  $condition: ModelAlbumConditionInput
+) {
+  deleteAlbum(input: $input, condition: $condition) {
+    id
+    fileName
+    createdAt
+    imageUrl
+    businessProfileId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteAlbumMutationVariables,
+  APITypes.DeleteAlbumMutation
 >;
