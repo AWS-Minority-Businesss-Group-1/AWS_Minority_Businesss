@@ -30,9 +30,7 @@ const Card13: FC<Card13Props> = ({ className = "" }) => {
         <span className="mt-4 block sm:hidden text-sm text-slate-500 ">
           May 20, 2021 · 2 min read
         </span>
-        <div className="mt-auto hidden sm:block">
-          <PostCardMeta />
-        </div>
+        <div className="mt-auto hidden sm:block">{/* <PostCardMeta /> */}</div>
       </div>
 
       <Link
