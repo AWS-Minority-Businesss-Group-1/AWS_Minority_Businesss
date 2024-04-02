@@ -25,15 +25,15 @@ const WidgetHeading1: FC<WidgetHeading1Props> = ({
       <h2 className="text-lg text-neutral-900 dark:text-neutral-100 font-semibold flex-grow">
         {title}
       </h2>
-      <div className="flex flex-row space-x-2">
+      <div>
         <Rating
           name="half-rating-read"
           value={numberOfStars ? numberOfStars : 0}
           precision={0.5}
           readOnly
         />
-        <p>{`${numberOfReviews} review${numberOfReviews === 1 ? "" : "s"}`}</p>
       </div>
+      <p>{`${numberOfReviews} review${numberOfReviews === 1 ? "" : "s"}`}</p>
     </div>
   );
 };

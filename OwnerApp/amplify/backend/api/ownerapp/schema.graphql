@@ -38,14 +38,6 @@ type BusinessProfile @model {
   contactInfo: ContactInfo
   operatingHours: [BusinessOperatingHours!]
   tags: [String!]
-  profilePicture: BusinessProfilePicture
-  albums: [Album] @hasMany(indexName: "byBusinessProfile", fields: ["id"])
-}
-
-type BusinessProfilePicture {
-  fileName: String!
-  createdAt: Float!
-  imageUrl: String!
 }
 
 type BusinessOperatingHours {
@@ -57,12 +49,4 @@ type BusinessOperatingHours {
 type ContactInfo {
   email: String
   phoneNumber: String
-}
-
-type Album @model {
-  id: ID!
-  fileName: String!
-  createdAt: Float!
-  imageUrl: String!
-  businessProfileId: ID! @index(name: "byBusinessProfile")
 }
